@@ -254,15 +254,19 @@ const Index = () => {
             <span className="mask-reveal italic text-primary/90">precedes the position.</span>
           </h2>
 
-          <ol
-            ref={timelineRef}
-            className="timeline-progress mt-24 grid grid-cols-1 md:grid-cols-6"
-            style={{ ["--progress" as string]: `${Math.round(progress * 100)}%` }}
-          >
+          <div className="mt-24" ref={undefined}>
+            <div
+              className="timeline-progress hidden h-px w-full md:block"
+              style={{ ["--progress" as string]: `${Math.round(progress * 100)}%` }}
+            />
+            <ol
+              ref={timelineRef}
+              className="grid grid-cols-1 md:grid-cols-6"
+            >
             {timeline.map((step, i) => (
               <li
                 key={step}
-                className="reveal relative flex flex-col gap-6 px-6 py-8"
+                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <span
@@ -286,7 +290,8 @@ const Index = () => {
                 </span>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
       </section>
     </Layout>
