@@ -18,19 +18,29 @@ const WhyUAE = () => {
   return (
     <Layout>
       {/* Cinematic intro */}
-      <section className="relative flex h-[100svh] min-h-[640px] items-center overflow-hidden grain">
+      <section className="relative flex h-[100svh] min-h-[600px] max-h-[900px] items-center justify-center overflow-hidden grain pt-20">
         <div className="absolute inset-0">
-          <img src={dunes} alt="Desert at twilight" className="h-full w-full object-cover opacity-80" />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-background/30 to-background" />
+          <img
+            src={dunes}
+            alt="Desert at twilight"
+            className="h-full w-full object-cover animate-ambient"
+          />
+          {/* Layered overlays for depth and contrast */}
+          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--background)/0.45)_70%)]" />
         </div>
-        <div className="relative z-10 mx-auto w-full max-w-[1320px] px-8">
+        <div className="relative z-10 mx-auto flex w-full max-w-[1320px] flex-col items-start px-8">
           <SectionLabel index="—" label="Why UAE" />
-          <h1 className="reveal in mt-8 max-w-4xl font-serif text-[clamp(2.6rem,7vw,6rem)] font-light leading-[1.02] text-foreground">
+          <h1 className="reveal in mt-6 max-w-5xl font-serif text-[clamp(3rem,8vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
             Why we choose
             <br />
-            <span className="italic text-primary/90">the United Arab Emirates.</span>
+            <span className="italic text-primary">the United Arab Emirates.</span>
           </h1>
-          <div className="gold-rule mt-10 w-40" />
+          <div className="gold-rule reveal in mt-10 w-48" />
+          <p className="reveal in mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground">
+            A jurisdiction defined by stability, ambition, and the architecture of long-term capital.
+          </p>
         </div>
       </section>
 
