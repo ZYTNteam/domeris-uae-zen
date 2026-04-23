@@ -33,7 +33,7 @@ const Governance = () => (
           {principles.map((p, i) => (
             <article
               key={p.t}
-              className="reveal bg-background p-12"
+              className="reveal luxe-card gold-sweep bg-background p-12"
               style={{ transitionDelay: `${i * 100}ms` }}
             >
               <span className="text-[10px] uppercase tracking-[0.4em] text-primary">

@@ -39,7 +39,7 @@ const Strategy = () => (
           {pillars.map((p, i) => (
             <article
               key={p.t}
-              className="reveal group bg-background p-12 transition-all duration-700 hover:bg-secondary/30"
+              className="reveal luxe-card gold-sweep group bg-background p-12 hover:bg-secondary/30"
               style={{ transitionDelay: `${i * 80}ms` }}
             >
               <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
