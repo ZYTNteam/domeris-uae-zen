@@ -8,47 +8,47 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Domeris — Black + Champagne Gold */
-    --background: 240 18% 4%;          /* #07070A */
-    --foreground: 44 25% 93%;          /* #F3F1EA */
+    /* Domeris — Ivory + Champagne Gold (light) */
+    --background: 40 33% 97%;          /* #FAF8F2 ivory */
+    --foreground: 230 18% 10%;         /* near-black */
 
-    --card: 225 12% 12%;               /* graphite */
-    --card-foreground: 44 25% 93%;
+    --card: 0 0% 100%;
+    --card-foreground: 230 18% 10%;
 
-    --popover: 225 12% 10%;
-    --popover-foreground: 44 25% 93%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 230 18% 10%;
 
-    --primary: 36 44% 60%;             /* champagne gold #C8A46A */
-    --primary-foreground: 240 18% 4%;
+    --primary: 34 38% 46%;             /* deeper champagne for contrast on light */
+    --primary-foreground: 40 33% 97%;
 
-    --secondary: 225 12% 13%;          /* #1C1E25 */
-    --secondary-foreground: 44 25% 93%;
+    --secondary: 40 20% 92%;
+    --secondary-foreground: 230 18% 10%;
 
-    --muted: 225 10% 14%;
-    --muted-foreground: 40 12% 65%;
+    --muted: 40 15% 90%;
+    --muted-foreground: 230 8% 38%;
 
-    --accent: 36 44% 60%;
-    --accent-foreground: 240 18% 4%;
+    --accent: 34 38% 46%;
+    --accent-foreground: 40 33% 97%;
 
     --destructive: 0 62% 45%;
-    --destructive-foreground: 44 25% 93%;
+    --destructive-foreground: 40 33% 97%;
 
-    --border: 36 18% 22%;
-    --input: 225 10% 18%;
-    --ring: 36 44% 60%;
+    --border: 36 20% 82%;
+    --input: 36 20% 85%;
+    --ring: 34 38% 46%;
 
     --radius: 0.125rem;
 
-    --gold: 36 44% 60%;
-    --gold-soft: 36 38% 70%;
-    --gold-deep: 34 38% 42%;
+    --gold: 34 42% 50%;
+    --gold-soft: 36 40% 65%;
+    --gold-deep: 32 40% 38%;
 
     --gradient-gold: linear-gradient(90deg, transparent, hsl(var(--gold) / 0.9), transparent);
     --gradient-veil: linear-gradient(180deg, hsl(var(--background) / 0) 0%, hsl(var(--background) / 0.6) 60%, hsl(var(--background)) 100%);
-    --gradient-radial: radial-gradient(ellipse at 50% 40%, hsl(var(--gold) / 0.10), transparent 60%);
+    --gradient-radial: radial-gradient(ellipse at 50% 40%, hsl(var(--gold) / 0.14), transparent 60%);
 
-    --shadow-glow: 0 0 60px -10px hsl(var(--gold) / 0.35);
-    --shadow-soft: 0 30px 80px -40px hsl(0 0% 0% / 0.8);
+    --shadow-glow: 0 0 60px -10px hsl(var(--gold) / 0.30);
+    --shadow-soft: 0 30px 80px -40px hsl(230 30% 20% / 0.25);
 
     --ease-luxe: cubic-bezier(0.22, 1, 0.36, 1);
 
