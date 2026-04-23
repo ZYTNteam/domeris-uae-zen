@@ -4,7 +4,8 @@ import UAEMap from "@/components/UAEMap";
 import skyline from "@/assets/skyline-hero.jpg";
 import architecture from "@/assets/architecture.jpg";
 import dunes from "@/assets/dunes.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
 
 const pillars = [
   { n: "01", t: "UAE Focus", d: "A single market, studied with depth." },
@@ -45,7 +46,7 @@ const Hero = () => {
   return (
     <section className="relative h-[100svh] min-h-[720px] w-full overflow-hidden grain">
       <div
-        className="absolute inset-0 scale-110"
+        className="absolute inset-0 scale-110 animate-ambient"
         style={{ transform: `translate3d(0, ${y * 0.2}px, 0) scale(1.1)` }}
       >
         <img
@@ -88,6 +89,8 @@ const Hero = () => {
 };
 
 const Index = () => {
+  const timelineRef = useRef<HTMLOListElement>(null);
+  const progress = useScrollProgress(timelineRef);
   return (
     <Layout>
       <Hero />
@@ -106,7 +109,7 @@ const Index = () => {
             {pillars.map((p, i) => (
               <article
                 key={p.t}
-                className="reveal group relative bg-background p-10 transition-all duration-700 ease-luxe hover:bg-secondary/40"
+                className="reveal luxe-card gold-sweep group relative bg-background p-10 hover:bg-secondary/40"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <div className="flex items-start justify-between">
@@ -178,7 +181,7 @@ const Index = () => {
             {strategy.map((s, i) => (
               <article
                 key={s.t}
-                className="reveal group relative bg-background p-12 transition-all duration-700 hover:bg-secondary/30"
+                className="reveal luxe-card gold-sweep group relative bg-background p-12 hover:bg-secondary/30"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
@@ -219,7 +222,7 @@ const Index = () => {
             ].map((m, i) => (
               <div
                 key={m.k}
-                className="reveal bg-background p-12"
+                className="reveal luxe-card bg-background p-12"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <p className="text-[10px] uppercase tracking-[0.4em] text-primary">
@@ -251,14 +254,34 @@ const Index = () => {
             <span className="mask-reveal italic text-primary/90">precedes the position.</span>
           </h2>
 
-          <ol className="mt-24 grid grid-cols-1 md:grid-cols-6">
+          <div className="mt-24" ref={undefined}>
+            <div
+              className="timeline-progress hidden h-px w-full md:block"
+              style={{ ["--progress" as string]: `${Math.round(progress * 100)}%` }}
+            />
+            <ol
+              ref={timelineRef}
+              className="grid grid-cols-1 md:grid-cols-6"
+            >
             {timeline.map((step, i) => (
               <li
                 key={step}
-                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0 md:border-t"
+                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
-                <span className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full bg-primary md:-top-[5px] md:left-6" />
+                <span
+                  className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-colors duration-700 md:-top-[5px] md:left-6"
+                  style={{
+                    backgroundColor:
+                      progress * timeline.length > i
+                        ? "hsl(var(--gold))"
+                        : "hsl(var(--border))",
+                    boxShadow:
+                      progress * timeline.length > i
+                        ? "0 0 14px hsl(var(--gold) / 0.6)"
+                        : "none",
+                  }}
+                />
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
                   Step 0{i + 1}
                 </span>
@@ -267,7 +290,8 @@ const Index = () => {
                 </span>
               </li>
             ))}
-          </ol>
+            </ol>
+          </div>
         </div>
       </section>
     </Layout>
