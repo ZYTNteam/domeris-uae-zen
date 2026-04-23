@@ -89,6 +89,8 @@ const Hero = () => {
 };
 
 const Index = () => {
+  const timelineRef = useRef<HTMLOListElement>(null);
+  const progress = useScrollProgress(timelineRef);
   return (
     <Layout>
       <Hero />
@@ -252,14 +254,30 @@ const Index = () => {
             <span className="mask-reveal italic text-primary/90">precedes the position.</span>
           </h2>
 
-          <ol className="mt-24 grid grid-cols-1 md:grid-cols-6">
+          <ol
+            ref={timelineRef}
+            className="timeline-progress mt-24 grid grid-cols-1 md:grid-cols-6"
+            style={{ ["--progress" as string]: `${Math.round(progress * 100)}%` }}
+          >
             {timeline.map((step, i) => (
               <li
                 key={step}
-                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0 md:border-t"
+                className="reveal relative flex flex-col gap-6 px-6 py-8"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
-                <span className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full bg-primary md:-top-[5px] md:left-6" />
+                <span
+                  className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-colors duration-700 md:-top-[5px] md:left-6"
+                  style={{
+                    backgroundColor:
+                      progress * timeline.length > i
+                        ? "hsl(var(--gold))"
+                        : "hsl(var(--border))",
+                    boxShadow:
+                      progress * timeline.length > i
+                        ? "0 0 14px hsl(var(--gold) / 0.6)"
+                        : "none",
+                  }}
+                />
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
                   Step 0{i + 1}
                 </span>
