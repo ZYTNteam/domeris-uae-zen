@@ -4,7 +4,8 @@ import UAEMap from "@/components/UAEMap";
 import skyline from "@/assets/skyline-hero.jpg";
 import architecture from "@/assets/architecture.jpg";
 import dunes from "@/assets/dunes.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useScrollProgress } from "@/hooks/use-scroll-progress";
 
 const pillars = [
   { n: "01", t: "UAE Focus", d: "A single market, studied with depth." },
@@ -45,7 +46,7 @@ const Hero = () => {
   return (
     <section className="relative h-[100svh] min-h-[720px] w-full overflow-hidden grain">
       <div
-        className="absolute inset-0 scale-110"
+        className="absolute inset-0 scale-110 animate-ambient"
         style={{ transform: `translate3d(0, ${y * 0.2}px, 0) scale(1.1)` }}
       >
         <img

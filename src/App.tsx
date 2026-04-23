@@ -9,6 +9,8 @@ import Strategy from "./pages/Strategy.tsx";
 import Governance from "./pages/Governance.tsx";
 import Legal from "./pages/Legal.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import Loader from "./components/Loader";
+import CursorGlow from "./components/CursorGlow";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +19,8 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <Loader />
+      <CursorGlow />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
