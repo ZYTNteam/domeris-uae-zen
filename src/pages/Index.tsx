@@ -107,7 +107,7 @@ const Index = () => {
             {pillars.map((p, i) => (
               <article
                 key={p.t}
-                className="reveal group relative bg-background p-10 transition-all duration-700 ease-luxe hover:bg-secondary/40"
+                className="reveal luxe-card gold-sweep group relative bg-background p-10 hover:bg-secondary/40"
                 style={{ transitionDelay: `${i * 120}ms` }}
               >
                 <div className="flex items-start justify-between">
@@ -179,7 +179,7 @@ const Index = () => {
             {strategy.map((s, i) => (
               <article
                 key={s.t}
-                className="reveal group relative bg-background p-12 transition-all duration-700 hover:bg-secondary/30"
+                className="reveal luxe-card gold-sweep group relative bg-background p-12 hover:bg-secondary/30"
                 style={{ transitionDelay: `${i * 80}ms` }}
               >
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
@@ -220,7 +220,7 @@ const Index = () => {
             ].map((m, i) => (
               <div
                 key={m.k}
-                className="reveal bg-background p-12"
+                className="reveal luxe-card bg-background p-12"
                 style={{ transitionDelay: `${i * 100}ms` }}
               >
                 <p className="text-[10px] uppercase tracking-[0.4em] text-primary">
