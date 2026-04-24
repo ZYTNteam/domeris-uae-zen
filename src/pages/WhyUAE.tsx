@@ -2,7 +2,6 @@ import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
 import UAEMap from "@/components/UAEMap";
 import CinematicHero from "@/components/CinematicHero";
-import architecture from "@/assets/architecture.jpg";
 import skylineMist from "@/assets/skyline-mist.jpg";
 import { useEffect, useRef, useState } from "react";
 import { Compass, MapPin, Building2, Layers, ShieldCheck, Globe2 } from "lucide-react";
