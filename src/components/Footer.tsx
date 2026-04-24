@@ -7,7 +7,7 @@ const Footer = () => (
       <div className="grid grid-cols-1 gap-12 md:grid-cols-12">
         <div className="md:col-span-6">
           <h3 className="font-serif text-3xl text-foreground md:text-4xl">
-            Domeris Investment
+            Domaris Invest
           </h3>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
             A UAE-only investment firm allocating shareholders' capital with
@@ -32,7 +32,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-16 flex flex-col items-start justify-between gap-3 text-[10px] uppercase tracking-[0.3em] text-muted-foreground md:flex-row">
-        <span>© {new Date().getFullYear()} Domeris Investment</span>
+        <span>© {new Date().getFullYear()} Domaris Invest</span>
         <span>Abu Dhabi · Dubai</span>
       </div>
     </div>

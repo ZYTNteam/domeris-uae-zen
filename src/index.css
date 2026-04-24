@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Domeris — Ivory + Champagne Gold (light) */
+    /* Domaris — Ivory + Champagne Gold (light) */
     --background: 40 33% 97%;          /* #FAF8F2 ivory */
     --foreground: 230 18% 10%;         /* near-black */
 
