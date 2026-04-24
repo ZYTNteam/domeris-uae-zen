@@ -394,6 +394,37 @@ All colors MUST be HSL.
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Luxury sparkle traveling around card border */
+.sparkle-border {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  border-radius: inherit;
+  overflow: hidden;
+}
+.sparkle-border::before {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, hsl(var(--gold) / 0.95), hsl(var(--gold) / 0) 70%);
+  filter: blur(0.4px);
+  offset-path: inset(0 round 2px);
+  offset-distance: 0%;
+  animation: sparkle-travel 9s linear infinite;
+  box-shadow: 0 0 12px hsl(var(--gold) / 0.7);
+}
+@keyframes sparkle-travel {
+  to { offset-distance: 100%; }
+}
+
+/* Pulsing ring for active city marker */
+@keyframes city-ring {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+
 /* Hero gold sweep underline (animates in once) */
 .hero-rule {
   position: relative;
