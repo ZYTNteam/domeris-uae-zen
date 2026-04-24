@@ -1,73 +1,36 @@
 import { useEffect, useRef, useState } from "react";
+import reliefMap from "@/assets/uae-relief-map.png";
 
 /**
- * Geographically-grounded UAE outline with seven Emirate capitals.
- * Coordinates are normalized to a 1000x700 viewBox covering roughly
- * 51.5°E–56.5°E, 22.5°N–26.5°N. Coastal cities sit on the Gulf coast.
+ * Premium embossed UAE map — uses a sculpted ivory + gold relief image
+ * with overlaid champagne-gold city markers on the actual coastline.
+ *
+ * City coordinates are expressed as percentages (0–100) of the
+ * displayed map image. They were tuned against the rendered relief
+ * artwork so each marker sits on the correct landmass / coast.
  */
 
 type City = {
   name: string;
-  short: string;
-  x: number;
-  y: number;
-  align?: "left" | "right";
+  x: number; // % of width
+  y: number; // % of height
+  // label offset relative to marker, in %
+  lx: number;
+  ly: number;
+  align: "left" | "right";
 };
 
 const cities: City[] = [
-  // Abu Dhabi — on the Gulf coast (island/peninsula)
-  { name: "Abu Dhabi", short: "AUH", x: 360, y: 470, align: "left" },
-  // Dubai — Gulf coast, NE of Abu Dhabi
-  { name: "Dubai", short: "DXB", x: 600, y: 330, align: "right" },
-  // Sharjah — just NE of Dubai
-  { name: "Sharjah", short: "SHJ", x: 640, y: 305, align: "right" },
-  // Ajman — small, NE of Sharjah
-  { name: "Ajman", short: "AJM", x: 668, y: 287, align: "right" },
-  // Umm Al Quwain
-  { name: "Umm Al Quwain", short: "UAQ", x: 700, y: 265, align: "right" },
-  // Ras Al Khaimah — far north
-  { name: "Ras Al Khaimah", short: "RAK", x: 760, y: 215, align: "right" },
-  // Fujairah — east coast (Gulf of Oman)
-  { name: "Fujairah", short: "FUJ", x: 855, y: 305, align: "right" },
+  // Gulf coast — west to north-east
+  { name: "Abu Dhabi",      x: 38.0, y: 64.0, lx: -2,  ly: 4,  align: "left"  },
+  { name: "Dubai",          x: 55.5, y: 49.5, lx: -2,  ly: -2, align: "left"  },
+  { name: "Sharjah",        x: 60.0, y: 45.5, lx: 4,   ly: 0,  align: "right" },
+  { name: "Ajman",          x: 62.5, y: 43.0, lx: 4,   ly: 0,  align: "right" },
+  { name: "Umm Al Quwain",  x: 65.0, y: 40.0, lx: 4,   ly: 0,  align: "right" },
+  { name: "Ras Al Khaimah", x: 71.5, y: 25.0, lx: 4,   ly: -1, align: "right" },
+  // Gulf of Oman (east coast)
+  { name: "Fujairah",       x: 84.0, y: 38.0, lx: 4,   ly: 0,  align: "right" },
 ];
-
-// A more accurate UAE land outline (simplified but recognizable):
-// Western desert border with Saudi Arabia, southern Empty Quarter edge,
-// Omani border in the east, Musandam exclusion at the north tip,
-// then the Arabian Gulf coast back down to Qatar peninsula area.
-const UAE_PATH =
-  "M 120 470 \
-   L 180 430 L 260 410 L 340 405 L 430 415 L 520 430 L 610 445 \
-   L 700 470 L 780 500 L 860 520 L 920 540 L 940 560 \
-   L 920 590 L 870 605 L 800 612 L 720 615 L 640 612 L 560 608 \
-   L 480 600 L 400 590 L 330 575 L 270 555 L 220 530 L 180 510 \
-   L 150 495 Z \
-   M 880 300 L 900 270 L 905 250 L 895 235 L 875 245 L 870 275 Z"; // Musandam-ish hint
-
-// Cleaner, accurate outline using control over coast.
-const UAE_OUTLINE =
-  "M 110 520 \
-   C 130 500 160 485 200 478 \
-   C 250 470 305 470 355 478 \
-   C 360 472 372 466 388 462 \
-   L 410 458 L 430 452 L 460 446 \
-   C 500 440 540 432 580 420 \
-   C 615 410 650 395 685 378 \
-   C 705 368 720 355 735 340 \
-   C 745 320 752 295 760 268 \
-   C 768 240 778 218 795 205 \
-   C 808 198 822 200 832 212 \
-   C 845 230 855 255 868 280 \
-   C 880 305 890 330 895 355 \
-   C 898 380 892 405 880 425 \
-   C 870 442 858 455 845 462 \
-   C 870 470 890 485 905 505 \
-   C 918 525 922 548 915 568 \
-   C 905 588 882 600 855 608 \
-   C 800 622 740 626 680 624 \
-   C 600 622 520 615 440 605 \
-   C 360 595 285 580 220 558 \
-   C 175 542 140 530 110 520 Z";
 
 const UAEMap = ({ className = "" }: { className?: string }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
@@ -80,20 +43,22 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
     let raf = 0;
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width - 0.5;
-      const py = (e.clientY - r.top) / r.height - 0.5;
+      const px = (e.clientX - r.left) / r.width;
+      const py = (e.clientY - r.top) / r.height;
       cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => setParallax({ x: px * 8, y: py * 6 }));
+      raf = requestAnimationFrame(() =>
+        setParallax({ x: (px - 0.5) * 10, y: (py - 0.5) * 8 })
+      );
 
-      // proximity activation
-      const sx = (e.clientX - r.left) / r.width * 1000;
-      const sy = (e.clientY - r.top) / r.height * 700;
+      // proximity in percentage space
+      const sx = px * 100;
+      const sy = py * 100;
       let nearest: { name: string; d: number } | null = null;
       for (const c of cities) {
         const d = Math.hypot(c.x - sx, c.y - sy);
         if (!nearest || d < nearest.d) nearest = { name: c.name, d };
       }
-      setActive(nearest && nearest.d < 90 ? nearest.name : null);
+      setActive(nearest && nearest.d < 8 ? nearest.name : null);
     };
     const onLeave = () => setActive(null);
     el.addEventListener("mousemove", onMove);
@@ -106,179 +71,144 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
   }, []);
 
   const activeCity = cities.find((c) => c.name === active);
-  // smooth zoom — translate + scale viewBox via CSS transform
   const zoom = activeCity ? 1.08 : 1;
-  const tx = activeCity ? (500 - activeCity.x) * 0.06 : 0;
-  const ty = activeCity ? (350 - activeCity.y) * 0.06 : 0;
+  // translate map so the active city moves slightly toward center
+  const tx = activeCity ? (50 - activeCity.x) * 0.18 : 0;
+  const ty = activeCity ? (50 - activeCity.y) * 0.18 : 0;
 
   return (
     <div
       ref={wrapRef}
       className={`relative ${className}`}
-      style={{ perspective: "1200px" }}
+      style={{ perspective: "1400px" }}
     >
-      {/* Soft ivory pedestal glow */}
+      {/* Faint radial pedestal */}
       <div
-        className="pointer-events-none absolute inset-0 rounded-[2rem]"
+        className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse at 50% 55%, hsl(var(--gold) / 0.10), transparent 65%)",
+            "radial-gradient(ellipse at 45% 45%, hsl(var(--gold) / 0.10), transparent 65%)",
         }}
       />
-      <svg
-        viewBox="0 0 1000 700"
+
+      {/* Map image with parallax + zoom transform */}
+      <div
         className="relative h-full w-full"
-        fill="none"
-        aria-label="Geographically accurate map of the United Arab Emirates"
         style={{
-          transform: `translate3d(${parallax.x + tx}px, ${parallax.y + ty}px, 0) scale(${zoom})`,
+          transform: `translate3d(${parallax.x + tx}%, ${parallax.y + ty}%, 0) scale(${zoom})`,
           transition: "transform 1400ms cubic-bezier(0.22,1,0.36,1)",
+          transformOrigin: activeCity
+            ? `${activeCity.x}% ${activeCity.y}%`
+            : "50% 50%",
         }}
       >
-        <defs>
-          <linearGradient id="landFill" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0%" stopColor="hsl(40 35% 95%)" />
-            <stop offset="55%" stopColor="hsl(38 30% 90%)" />
-            <stop offset="100%" stopColor="hsl(34 28% 82%)" />
-          </linearGradient>
-          <linearGradient id="landRim" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="hsl(var(--gold) / 0.85)" />
-            <stop offset="100%" stopColor="hsl(var(--gold) / 0.35)" />
-          </linearGradient>
-          <radialGradient id="emboss" cx="35%" cy="30%" r="80%">
-            <stop offset="0%" stopColor="hsl(0 0% 100% / 0.65)" />
-            <stop offset="60%" stopColor="hsl(0 0% 100% / 0)" />
-          </radialGradient>
-          <filter id="softShadow" x="-20%" y="-20%" width="140%" height="160%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="6" />
-            <feOffset dx="0" dy="8" result="off" />
-            <feComponentTransfer><feFuncA type="linear" slope="0.35" /></feComponentTransfer>
-            <feMerge><feMergeNode /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-          <filter id="goldGlow">
-            <feGaussianBlur stdDeviation="6" result="b" />
-            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-          </filter>
-        </defs>
-
-        {/* Subtle dune contour lines in the background */}
-        <g opacity="0.35" stroke="hsl(var(--gold) / 0.18)" strokeWidth="0.6" fill="none">
-          {Array.from({ length: 8 }).map((_, i) => (
-            <path
-              key={i}
-              d={`M 60 ${120 + i * 60} Q 500 ${80 + i * 60} 940 ${140 + i * 60}`}
-            />
-          ))}
-        </g>
-
-        {/* Land — embossed UAE silhouette */}
-        <g filter="url(#softShadow)">
-          <path d={UAE_OUTLINE} fill="url(#landFill)" stroke="url(#landRim)" strokeWidth="1.4" />
-          <path d={UAE_OUTLINE} fill="url(#emboss)" opacity="0.9" />
-        </g>
-
-        {/* Inner contour echoes (interior topography) */}
-        <g opacity="0.5" stroke="hsl(var(--gold) / 0.22)" strokeWidth="0.7" fill="none">
-          <path d="M 220 530 C 320 500 460 490 600 500 C 720 508 820 522 880 540" />
-          <path d="M 280 555 C 380 530 500 522 620 530 C 730 538 820 548 870 562" />
-          <path d="M 340 575 C 440 558 540 552 640 558 C 740 564 820 572 860 580" />
-        </g>
-
-        {/* Coastline accent (Gulf side) */}
-        <path
-          d="M 110 520 C 130 500 160 485 200 478 C 250 470 305 470 355 478 C 388 462 460 446 580 420 C 650 405 720 380 760 340"
-          stroke="hsl(var(--gold) / 0.55)"
-          strokeWidth="1.2"
-          fill="none"
-          strokeDasharray="1600"
-          strokeDashoffset="1600"
-          style={{ animation: "draw 3.6s cubic-bezier(0.22,1,0.36,1) 0.3s forwards" }}
+        <img
+          src={reliefMap}
+          alt="Embossed relief map of the United Arab Emirates"
+          className="pointer-events-none h-full w-full select-none object-contain"
+          width={1024}
+          height={1024}
+          loading="lazy"
+          draggable={false}
         />
 
-        {/* City markers */}
+        {/* City markers — positioned absolutely on top of the map */}
         {cities.map((c, i) => {
           const isActive = active === c.name;
-          const labelX = c.align === "left" ? c.x - 14 : c.x + 14;
-          const anchor = c.align === "left" ? "end" : "start";
           return (
-            <g key={c.name} style={{ transition: "opacity 600ms ease" }}>
-              {/* halo */}
-              <circle
-                cx={c.x}
-                cy={c.y}
-                r={isActive ? 18 : 10}
-                fill="hsl(var(--gold) / 0.18)"
+            <div
+              key={c.name}
+              className="absolute"
+              style={{
+                left: `${c.x}%`,
+                top: `${c.y}%`,
+                transform: "translate(-50%, -50%)",
+              }}
+            >
+              {/* Pulsing ring (active only) */}
+              {isActive && (
+                <span
+                  className="absolute left-1/2 top-1/2 block h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+                  style={{
+                    borderColor: "hsl(var(--gold) / 0.55)",
+                    animation: "city-ring 1800ms ease-out infinite",
+                  }}
+                />
+              )}
+              {/* Halo */}
+              <span
+                className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
-                  transition: "r 900ms cubic-bezier(0.22,1,0.36,1), opacity 700ms ease",
-                  opacity: isActive ? 1 : 0.55,
-                  filter: isActive ? "url(#goldGlow)" : undefined,
+                  width: isActive ? 28 : 14,
+                  height: isActive ? 28 : 14,
+                  background: "hsl(var(--gold) / 0.22)",
+                  filter: isActive ? "blur(2px)" : "blur(1px)",
+                  transition: "all 900ms cubic-bezier(0.22,1,0.36,1)",
+                  opacity: isActive ? 1 : 0.7,
+                  boxShadow: isActive
+                    ? "0 0 24px hsl(var(--gold) / 0.7)"
+                    : "0 0 8px hsl(var(--gold) / 0.35)",
                 }}
               />
-              <circle
-                cx={c.x}
-                cy={c.y}
-                r="6"
-                fill="hsl(var(--gold) / 0.30)"
+              {/* Soft pulse dot */}
+              <span
+                className="absolute left-1/2 top-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full"
                 style={{
+                  background: "hsl(var(--gold) / 0.45)",
                   animation: `pulse-node 3.6s ease-in-out ${i * 0.4}s infinite`,
-                  transformOrigin: `${c.x}px ${c.y}px`,
                 }}
               />
-              {/* core dot */}
-              <circle cx={c.x} cy={c.y} r="2.4" fill="hsl(var(--gold))" />
-              {/* leader line */}
-              <line
-                x1={c.x}
-                y1={c.y}
-                x2={labelX}
-                y2={c.y}
-                stroke="hsl(var(--gold) / 0.55)"
-                strokeWidth="0.6"
+              {/* Core dot */}
+              <span
+                className="absolute left-1/2 top-1/2 block h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full"
+                style={{ background: "hsl(var(--gold))" }}
               />
-              {/* label */}
-              <text
-                x={labelX + (c.align === "left" ? -4 : 4)}
-                y={c.y - 4}
-                fontSize="14"
-                fontFamily="'Cormorant Garamond', serif"
-                fontStyle="italic"
-                fill="hsl(var(--foreground) / 0.9)"
-                textAnchor={anchor}
+              {/* Leader line + label */}
+              <div
+                className="absolute top-1/2 flex -translate-y-1/2 items-center"
                 style={{
-                  transition: "fill 600ms ease, font-weight 600ms ease",
-                  fontWeight: isActive ? 600 : 400,
+                  left: c.align === "right" ? "100%" : "auto",
+                  right: c.align === "left" ? "100%" : "auto",
+                  flexDirection: c.align === "left" ? "row-reverse" : "row",
                 }}
               >
-                {c.name}
-              </text>
-              <text
-                x={labelX + (c.align === "left" ? -4 : 4)}
-                y={c.y + 10}
-                fontSize="8"
-                fontFamily="Inter, sans-serif"
-                letterSpacing="3"
-                fill="hsl(var(--gold-deep))"
-                textAnchor={anchor}
-                opacity="0.7"
-              >
-                {c.short}
-              </text>
-            </g>
+                <span
+                  className="block h-px"
+                  style={{
+                    width: isActive ? 36 : 28,
+                    background:
+                      "linear-gradient(90deg, hsl(var(--gold) / 0.7), hsl(var(--gold) / 0.2))",
+                    transition: "width 700ms cubic-bezier(0.22,1,0.36,1)",
+                  }}
+                />
+                <span
+                  className="whitespace-nowrap px-2 text-[10px] uppercase tracking-[0.28em]"
+                  style={{
+                    color: isActive
+                      ? "hsl(var(--gold-deep))"
+                      : "hsl(var(--foreground) / 0.75)",
+                    fontWeight: isActive ? 600 : 500,
+                    letterSpacing: isActive ? "0.32em" : "0.28em",
+                    transform: isActive ? "scale(1.06)" : "scale(1)",
+                    transformOrigin: c.align === "left" ? "right" : "left",
+                    transition:
+                      "color 600ms ease, letter-spacing 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1), font-weight 600ms ease",
+                    textShadow: isActive
+                      ? "0 0 12px hsl(var(--gold) / 0.5)"
+                      : "none",
+                  }}
+                >
+                  {c.name}
+                </span>
+              </div>
+            </div>
           );
         })}
-
-        {/* Compass rose */}
-        <g transform="translate(920, 110)" opacity="0.6">
-          <circle r="22" fill="none" stroke="hsl(var(--gold) / 0.5)" strokeWidth="0.6" />
-          <path d="M 0 -18 L 3 0 L 0 18 L -3 0 Z" fill="hsl(var(--gold))" opacity="0.85" />
-          <path d="M -18 0 L 0 -3 L 18 0 L 0 3 Z" fill="hsl(var(--gold) / 0.5)" />
-          <text y="-26" fontSize="8" textAnchor="middle" fill="hsl(var(--gold-deep))" letterSpacing="2">N</text>
-        </g>
-      </svg>
+      </div>
 
       {/* Soft gold sweep across the map */}
       <div
-        className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]"
+        className="pointer-events-none absolute inset-0 overflow-hidden"
         aria-hidden="true"
       >
         <div
