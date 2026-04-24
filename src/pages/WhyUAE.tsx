@@ -3,6 +3,7 @@ import SectionLabel from "@/components/SectionLabel";
 import UAEMap from "@/components/UAEMap";
 import CinematicHero from "@/components/CinematicHero";
 import architecture from "@/assets/architecture.jpg";
+import skylineMist from "@/assets/skyline-mist.jpg";
 import { useEffect, useRef, useState } from "react";
 import { Compass, MapPin, Building2, Layers, ShieldCheck, Globe2 } from "lucide-react";
 
@@ -15,11 +16,11 @@ const drivers = [
 ];
 
 const valueCards = [
-  { icon: MapPin, t: "Strategic Location", d: "A crossroads between East and West, within eight hours of two-thirds of the world." },
-  { icon: Building2, t: "World-Class Infrastructure", d: "Ports, airports, and free zones engineered for global capital flow." },
-  { icon: Layers, t: "Diverse Economy", d: "Beyond hydrocarbons — finance, logistics, tourism, and advanced industry." },
-  { icon: ShieldCheck, t: "Stable Foundation", d: "A predictable legal and regulatory environment for long-duration capital." },
-  { icon: Globe2, t: "Global Connectivity", d: "Direct corridors to the world's largest and fastest-growing markets." },
+  { icon: ShieldCheck, t: "Strategic Location",        d: "A bridge between global markets." },
+  { icon: Building2,   t: "World-Class Infrastructure", d: "Built for movement, designed for scale." },
+  { icon: Layers,      t: "Diverse Economy",            d: "Multiple engines of sustainable growth." },
+  { icon: MapPin,      t: "Stable Foundation",          d: "Visionary leadership and future-focused governance." },
+  { icon: Globe2,      t: "Global Connectivity",        d: "Open, connected and future-ready." },
 ];
 
 const WhyUAE = () => {
