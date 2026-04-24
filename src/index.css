@@ -8,7 +8,7 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Domeris — Ivory + Champagne Gold (light) */
+    /* Domaris — Ivory + Champagne Gold (light) */
     --background: 40 33% 97%;          /* #FAF8F2 ivory */
     --foreground: 230 18% 10%;         /* near-black */
 
@@ -334,11 +334,85 @@ All colors MUST be HSL.
 }
 .animate-ambient { animation: ambient-shift 18s ease-in-out infinite; }
 
+/* Cinematic hero — traveling gold light line */
+.hero-light-sweep {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    hsl(var(--gold) / 0.0) 10%,
+    hsl(var(--gold) / 0.85) 50%,
+    hsl(var(--gold) / 0.0) 90%,
+    transparent 100%
+  );
+  filter: blur(0.4px);
+  transform: translateX(-100%);
+  animation: hero-sweep 12s ease-in-out infinite;
+}
+@keyframes hero-sweep {
+  0% { transform: translateX(-120%); opacity: 0; }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { transform: translateX(260%); opacity: 0; }
+}
+
+/* Drifting capital particles */
+.hero-particle {
+  background: hsl(var(--gold) / 0.55);
+  box-shadow: 0 0 6px hsl(var(--gold) / 0.45);
+  opacity: 0;
+  animation-name: particle-drift;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+  will-change: transform, opacity;
+}
+@keyframes particle-drift {
+  0% { transform: translate3d(0, 20px, 0); opacity: 0; }
+  20% { opacity: 0.7; }
+  80% { opacity: 0.5; }
+  100% { transform: translate3d(40px, -120px, 0); opacity: 0; }
+}
+
+/* Headline mask reveal — line by line */
+.line-mask {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: top;
+}
+.line-mask > span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: line-rise 1400ms var(--ease-luxe) forwards;
+}
+.line-mask.delay-1 > span { animation-delay: 250ms; }
+.line-mask.delay-2 > span { animation-delay: 600ms; }
+.line-mask.delay-3 > span { animation-delay: 950ms; }
+@keyframes line-rise {
+  to { transform: translateY(0); }
+}
+@keyframes fade-rise {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero gold sweep underline (animates in once) */
+.hero-rule {
+  position: relative;
+  height: 1px;
+  width: 0;
+  background: linear-gradient(90deg, transparent, hsl(var(--gold)), transparent);
+  animation: hero-rule-grow 1800ms var(--ease-luxe) 1100ms forwards;
+}
+@keyframes hero-rule-grow {
+  to { width: 14rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .reveal, .mask-reveal, .luxe-card, .gold-sweep::after, .cursor-glow, .loader-veil, .animate-ambient {
+  .reveal, .mask-reveal, .luxe-card, .gold-sweep::after, .cursor-glow, .loader-veil, .animate-ambient,
+  .hero-light-sweep, .hero-particle, .line-mask > span, .hero-rule {
     animation: none !important;
     transition: none !important;
     transform: none !important;
+    width: 14rem;
     opacity: 1 !important;
   }
 }

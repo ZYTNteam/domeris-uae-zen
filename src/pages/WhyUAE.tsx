@@ -1,7 +1,7 @@
 import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
 import UAEMap from "@/components/UAEMap";
-import dunes from "@/assets/dunes.jpg";
+import CinematicHero from "@/components/CinematicHero";
 import architecture from "@/assets/architecture.jpg";
 import { useState } from "react";
 
@@ -18,27 +18,17 @@ const WhyUAE = () => {
   return (
     <Layout>
       {/* Cinematic intro */}
-      <section className="relative flex h-[100svh] min-h-[600px] max-h-[900px] items-center justify-center overflow-hidden grain pt-20">
-        <div className="absolute inset-0">
-          <img
-            src={dunes}
-            alt="Desert at twilight"
-            className="h-full w-full object-cover animate-ambient"
-          />
-          {/* Layered overlays for depth and contrast */}
-          <div className="absolute inset-0 bg-gradient-to-b from-background/85 via-background/55 to-background" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/40" />
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--background)/0.45)_70%)]" />
-        </div>
+      <section className="relative flex h-[100svh] min-h-[600px] max-h-[900px] items-center justify-center overflow-hidden grain">
+        <CinematicHero />
         <div className="relative z-10 mx-auto flex w-full max-w-[1320px] flex-col items-start px-8">
           <SectionLabel index="—" label="Why UAE" />
-          <h1 className="reveal in mt-6 max-w-5xl font-serif text-[clamp(3rem,8vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
-            Why we choose
+          <h1 className="mt-6 max-w-5xl font-serif text-[clamp(3rem,8vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
+            <span className="line-mask delay-1"><span>Why we choose</span></span>
             <br />
-            <span className="italic text-primary">the United Arab Emirates.</span>
+            <span className="line-mask delay-2"><span className="italic text-primary">the United Arab Emirates.</span></span>
           </h1>
-          <div className="gold-rule reveal in mt-10 w-48" />
-          <p className="reveal in mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground">
+          <div className="mt-10 hero-rule" />
+          <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
             A jurisdiction defined by stability, ambition, and the architecture of long-term capital.
           </p>
         </div>

@@ -7,10 +7,10 @@ const Wordmark = ({ small = false }: { small?: boolean }) => (
         small ? "text-base" : "text-xl"
       } text-foreground transition-colors group-hover:text-primary`}
     >
-      DOMERIS
+      DOMARIS
     </span>
     <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-      Investment · UAE
+      Invest · UAE
     </span>
   </Link>
 );

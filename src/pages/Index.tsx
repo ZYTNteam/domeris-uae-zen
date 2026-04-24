@@ -1,10 +1,9 @@
 import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
-import UAEMap from "@/components/UAEMap";
-import skyline from "@/assets/skyline-hero.jpg";
+import CinematicHero from "@/components/CinematicHero";
 import architecture from "@/assets/architecture.jpg";
 import dunes from "@/assets/dunes.jpg";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
 
 const pillars = [
@@ -36,57 +35,31 @@ const timeline = [
   "Reporting",
 ];
 
-const Hero = () => {
-  const [y, setY] = useState(0);
-  useEffect(() => {
-    const onScroll = () => setY(window.scrollY);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-  return (
-    <section className="relative h-[100svh] min-h-[720px] w-full overflow-hidden grain">
-      <div
-        className="absolute inset-0 scale-110 animate-ambient"
-        style={{ transform: `translate3d(0, ${y * 0.2}px, 0) scale(1.1)` }}
-      >
-        <img
-          src={skyline}
-          alt="Dubai skyline at dusk"
-          className="h-full w-full object-cover opacity-70"
-          width={1920}
-          height={1080}
-        />
-        <div className="absolute inset-0 bg-gradient-veil" />
-        <div className="absolute inset-0 bg-gradient-radial" />
+const Hero = () => (
+  <section className="relative flex h-[100svh] min-h-[720px] w-full items-center overflow-hidden grain">
+    <CinematicHero />
+    <div className="relative z-10 mx-auto w-full max-w-[1320px] px-8">
+      <div className="max-w-3xl">
+        <p className="text-[10px] uppercase tracking-[0.5em] text-primary animate-[fade-rise_1100ms_var(--ease-luxe)_forwards] opacity-0 [animation-delay:150ms]">
+          Established in the United Arab Emirates
+        </p>
+        <h1 className="mt-8 font-serif text-[clamp(2.8rem,7vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
+          <span className="line-mask delay-1"><span>DOMARIS INVEST.</span></span>
+          <br />
+          <span className="line-mask delay-2"><span className="italic text-primary/90">Built for long horizons.</span></span>
+        </h1>
+        <div className="mt-10 hero-rule" />
+        <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
+          A UAE-only investment firm. Capital allocated with discipline,
+          governance, and patience.
+        </p>
       </div>
-
-      {/* UAE Map overlay */}
-      <UAEMap className="pointer-events-none absolute right-[-6%] top-[18%] hidden h-[70%] w-[60%] opacity-90 md:block" />
-
-      <div className="relative z-10 mx-auto flex h-full max-w-[1320px] flex-col justify-end px-8 pb-24">
-        <div className="reveal in max-w-3xl">
-          <p className="text-[10px] uppercase tracking-[0.5em] text-primary">
-            Established in the United Arab Emirates
-          </p>
-          <h1 className="mt-8 font-serif text-[clamp(2.8rem,7vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
-            UAE-only investment.
-            <br />
-            <span className="italic text-primary/90">Built for long horizons.</span>
-          </h1>
-          <div className="mt-10 gold-rule w-40" />
-          <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg">
-            We allocate shareholders' capital exclusively across UAE
-            opportunities — with discipline, governance, and patience.
-          </p>
-        </div>
-      </div>
-
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground animate-float-slow">
-        Scroll
-      </div>
-    </section>
-  );
-};
+    </div>
+    <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] uppercase tracking-[0.4em] text-muted-foreground animate-float-slow">
+      Scroll
+    </div>
+  </section>
+);
 
 const Index = () => {
   const timelineRef = useRef<HTMLOListElement>(null);
