@@ -2,7 +2,7 @@ import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
 import UAEMap from "@/components/UAEMap";
 import CinematicHero from "@/components/CinematicHero";
-import architecture from "@/assets/architecture.jpg";
+import skylineMist from "@/assets/skyline-mist.jpg";
 import { useEffect, useRef, useState } from "react";
 import { Compass, MapPin, Building2, Layers, ShieldCheck, Globe2 } from "lucide-react";
 
@@ -15,11 +15,11 @@ const drivers = [
 ];
 
 const valueCards = [
-  { icon: MapPin, t: "Strategic Location", d: "A crossroads between East and West, within eight hours of two-thirds of the world." },
-  { icon: Building2, t: "World-Class Infrastructure", d: "Ports, airports, and free zones engineered for global capital flow." },
-  { icon: Layers, t: "Diverse Economy", d: "Beyond hydrocarbons — finance, logistics, tourism, and advanced industry." },
-  { icon: ShieldCheck, t: "Stable Foundation", d: "A predictable legal and regulatory environment for long-duration capital." },
-  { icon: Globe2, t: "Global Connectivity", d: "Direct corridors to the world's largest and fastest-growing markets." },
+  { icon: ShieldCheck, t: "Strategic Location",        d: "A bridge between global markets." },
+  { icon: Building2,   t: "World-Class Infrastructure", d: "Built for movement, designed for scale." },
+  { icon: Layers,      t: "Diverse Economy",            d: "Multiple engines of sustainable growth." },
+  { icon: MapPin,      t: "Stable Foundation",          d: "Visionary leadership and future-focused governance." },
+  { icon: Globe2,      t: "Global Connectivity",        d: "Open, connected and future-ready." },
 ];
 
 const WhyUAE = () => {
@@ -121,7 +121,7 @@ const WhyUAE = () => {
       </section>
 
       {/* Geography — luxury interactive */}
-      <section className="relative overflow-hidden py-32 md:py-44"
+      <section className="relative overflow-hidden pt-32 pb-0 md:pt-40"
         style={{
           background:
             "linear-gradient(180deg, hsl(40 33% 97%) 0%, hsl(38 30% 94%) 50%, hsl(40 33% 97%) 100%)",
@@ -140,15 +140,35 @@ const WhyUAE = () => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px"
           style={{ background: "linear-gradient(90deg, transparent, hsl(var(--gold) / 0.6), transparent)" }} />
 
-        <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-16 px-8 md:grid-cols-12">
+        {/* Misty Dubai skyline behind the lower-left content */}
+        <div
+          className="pointer-events-none absolute bottom-0 left-0 z-0 h-[55%] w-[65%]"
+          aria-hidden="true"
+          style={{
+            backgroundImage: `linear-gradient(180deg, hsl(40 33% 97% / 0) 0%, hsl(40 33% 97% / 0.55) 60%, hsl(40 33% 97%) 100%), url(${skylineMist})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center bottom",
+            opacity: 0.55,
+            maskImage:
+              "linear-gradient(180deg, transparent 0%, black 35%, black 80%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(180deg, transparent 0%, black 35%, black 80%, transparent 100%)",
+          }}
+        />
+
+        <div className="relative z-10 mx-auto grid max-w-[1320px] grid-cols-1 items-center gap-16 px-8 md:grid-cols-12">
           <div className="md:col-span-5">
             <SectionLabel index="II." label="Geography" />
-            <h2 className="reveal mt-8 font-serif text-4xl font-light leading-tight text-foreground md:text-5xl">
+            <h2 className="reveal mt-8 font-serif text-5xl font-light leading-[1.05] tracking-tight text-foreground md:text-6xl lg:text-7xl">
               <span className="mask-reveal">Seven Emirates,</span>
               <br />
-              <span className="mask-reveal italic text-primary/90">one mandate.</span>
+              <span className="mask-reveal italic" style={{ color: "hsl(var(--gold-deep))" }}>one mandate.</span>
             </h2>
-            <p className="reveal mt-8 max-w-md text-sm leading-relaxed text-muted-foreground">
+            <div
+              className="reveal mt-8 h-px w-24"
+              style={{ background: "linear-gradient(90deg, hsl(var(--gold)), transparent)" }}
+            />
+            <p className="reveal mt-8 max-w-md text-[15px] leading-relaxed text-muted-foreground">
               Our work is rooted in the cities and corridors that define the
               modern UAE — studied with proximity, not from a distance.
             </p>
@@ -163,7 +183,7 @@ const WhyUAE = () => {
               }}
             >
               <div
-                className="relative overflow-hidden rounded-sm border border-border/60 p-7 backdrop-blur-md"
+                className="relative rounded-sm border border-border/60 p-7 backdrop-blur-md"
                 style={{
                   background:
                     "linear-gradient(135deg, hsl(0 0% 100% / 0.85), hsl(40 30% 95% / 0.65))",
@@ -171,6 +191,8 @@ const WhyUAE = () => {
                   transition: "box-shadow 900ms cubic-bezier(0.22,1,0.36,1)",
                 }}
               >
+                {/* Traveling sparkle around the border */}
+                <span className="sparkle-border" aria-hidden="true" />
                 {/* Flicker overlay */}
                 <div
                   className="pointer-events-none absolute inset-0"
@@ -194,10 +216,10 @@ const WhyUAE = () => {
                     <Compass className="h-5 w-5 text-primary" strokeWidth={1.2} />
                   </div>
                   <div>
-                    <div className="text-[10px] uppercase tracking-[0.4em] text-primary">
+                    <div className="text-[11px] uppercase tracking-[0.42em]" style={{ color: "hsl(var(--gold-deep))" }}>
                       UAE-only focus
                     </div>
-                    <p className="mt-3 font-serif text-xl font-light leading-snug text-foreground">
+                    <p className="mt-3 text-[13px] leading-relaxed text-muted-foreground">
                       All our capital is deployed exclusively within the United Arab Emirates.
                     </p>
                   </div>
@@ -208,65 +230,82 @@ const WhyUAE = () => {
 
           <div className="md:col-span-7">
             <div className="reveal">
-              <UAEMap className="h-[520px] w-full" />
+              <UAEMap className="h-[640px] w-full" />
             </div>
           </div>
         </div>
 
-        {/* Value cards */}
-        <div ref={cardsRef} className="relative mx-auto mt-24 max-w-[1320px] px-8 md:mt-32">
-          <SectionLabel index="III." label="Foundations" />
-          <div className="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-5">
+        {/* Value bar — five icon items with thin gold dividers */}
+        <div
+          ref={cardsRef}
+          className="relative z-10 mx-auto mt-20 max-w-[1320px] px-8 pb-24 md:mt-28"
+        >
+          <div className="grid grid-cols-2 gap-y-12 sm:grid-cols-3 lg:grid-cols-5 lg:gap-y-0">
             {valueCards.map((c, i) => {
               const Icon = c.icon;
               const g = cardGlow[i] ?? 0;
               return (
-                <article
+                <div
                   key={c.t}
                   data-vcard
-                  className="reveal group relative overflow-hidden rounded-sm border border-border/60 p-7"
+                  className="reveal group relative flex flex-col items-center px-4 text-center"
                   style={{
-                    background:
-                      "linear-gradient(160deg, hsl(0 0% 100% / 0.9), hsl(40 30% 96% / 0.7))",
-                    transform: `translateY(${-g * 8}px) scale(${1 + g * 0.02})`,
-                    boxShadow: `0 30px 60px -40px hsl(var(--gold) / ${0.2 + g * 0.5}), inset 0 0 0 1px hsl(var(--gold) / ${0.1 + g * 0.35})`,
+                    transform: `translateY(${-g * 6}px) scale(${1 + g * 0.015})`,
                     transition:
-                      "transform 900ms cubic-bezier(0.22,1,0.36,1), box-shadow 900ms cubic-bezier(0.22,1,0.36,1)",
+                      "transform 900ms cubic-bezier(0.22,1,0.36,1)",
                     transitionDelay: `${i * 60}ms`,
                   }}
                 >
-                  <div
-                    className="pointer-events-none absolute inset-0"
-                    style={{
-                      background:
-                        "radial-gradient(circle at 30% 20%, hsl(var(--gold) / 0.18), transparent 60%)",
-                      opacity: g,
-                      transition: "opacity 700ms ease",
-                      mixBlendMode: "multiply",
-                    }}
-                  />
-                  <div className="relative">
-                    <div
-                      className="flex h-11 w-11 items-center justify-center rounded-full border border-primary/40"
+                  {/* Vertical divider (between items, not after the last) */}
+                  {i < valueCards.length - 1 && (
+                    <span
+                      className="pointer-events-none absolute right-0 top-4 hidden h-20 w-px lg:block"
                       style={{
-                        background: "linear-gradient(135deg, hsl(var(--gold) / 0.18), transparent)",
-                        boxShadow: `0 0 ${8 + g * 26}px hsl(var(--gold) / ${0.25 + g * 0.4})`,
-                        transition: "box-shadow 700ms ease",
+                        background:
+                          "linear-gradient(180deg, transparent, hsl(var(--gold) / 0.45), transparent)",
                       }}
-                    >
-                      <Icon className="h-5 w-5 text-primary" strokeWidth={1.2} />
-                    </div>
-                    <div className="mt-6 text-[10px] uppercase tracking-[0.35em] text-primary">
-                      0{i + 1}
-                    </div>
-                    <h3 className="mt-3 font-serif text-2xl font-light leading-tight text-foreground">
-                      {c.t}
-                    </h3>
-                    <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                      {c.d}
-                    </p>
+                    />
+                  )}
+                  {/* Icon with soft glow */}
+                  <div
+                    className="relative flex h-12 w-12 items-center justify-center"
+                    style={{
+                      transition: "transform 700ms cubic-bezier(0.22,1,0.36,1)",
+                      transform: `scale(${1 + g * 0.08})`,
+                    }}
+                  >
+                    <span
+                      className="absolute inset-0 rounded-full"
+                      style={{
+                        background:
+                          "radial-gradient(circle, hsl(var(--gold) / 0.35), transparent 70%)",
+                        filter: "blur(8px)",
+                        opacity: 0.3 + g * 0.7,
+                        transition: "opacity 700ms ease",
+                      }}
+                    />
+                    <Icon
+                      className="relative h-7 w-7"
+                      strokeWidth={1.1}
+                      style={{
+                        color: g > 0.15 ? "hsl(var(--gold))" : "hsl(var(--gold-deep))",
+                        transition: "color 600ms ease",
+                      }}
+                    />
                   </div>
-                </article>
+                  <h3
+                    className="mt-5 text-[11px] uppercase leading-tight tracking-[0.28em]"
+                    style={{
+                      color: "hsl(var(--gold-deep))",
+                      fontWeight: 500,
+                    }}
+                  >
+                    {c.t}
+                  </h3>
+                  <p className="mt-3 max-w-[14rem] text-[12px] leading-relaxed text-muted-foreground">
+                    {c.d}
+                  </p>
+                </div>
               );
             })}
           </div>
