@@ -28,7 +28,7 @@ const WhyUAE = () => {
             <span className="line-mask delay-2"><span className="italic text-primary">the United Arab Emirates.</span></span>
           </h1>
           <div className="mt-10 hero-rule" />
-          <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground opacity-0 animate-[line-rise_1200ms_var(--ease-luxe)_1300ms_forwards]" style={{ animationFillMode: "forwards" }}>
+          <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
             A jurisdiction defined by stability, ambition, and the architecture of long-term capital.
           </p>
         </div>

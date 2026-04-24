@@ -389,6 +389,10 @@ All colors MUST be HSL.
 @keyframes line-rise {
   to { transform: translateY(0); }
 }
+@keyframes fade-rise {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
 
 /* Hero gold sweep underline (animates in once) */
 .hero-rule {

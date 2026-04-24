@@ -40,7 +40,7 @@ const Hero = () => (
     <CinematicHero />
     <div className="relative z-10 mx-auto w-full max-w-[1320px] px-8">
       <div className="max-w-3xl">
-        <p className="text-[10px] uppercase tracking-[0.5em] text-primary opacity-0 animate-[line-rise_900ms_var(--ease-luxe)_forwards] [animation-delay:200ms] [animation-fill-mode:forwards]" style={{ opacity: 1 }}>
+        <p className="text-[10px] uppercase tracking-[0.5em] text-primary animate-[fade-rise_1100ms_var(--ease-luxe)_forwards] opacity-0 [animation-delay:150ms]">
           Established in the United Arab Emirates
         </p>
         <h1 className="mt-8 font-serif text-[clamp(2.8rem,7vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
@@ -49,7 +49,7 @@ const Hero = () => (
           <span className="line-mask delay-2"><span className="italic text-primary/90">Built for long horizons.</span></span>
         </h1>
         <div className="mt-10 hero-rule" />
-        <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg opacity-0 animate-[line-rise_1200ms_var(--ease-luxe)_1300ms_forwards]" style={{ animationFillMode: "forwards" }}>
+        <p className="mt-8 max-w-xl text-base leading-relaxed text-muted-foreground md:text-lg opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
           A UAE-only investment firm. Capital allocated with discipline,
           governance, and patience.
         </p>
