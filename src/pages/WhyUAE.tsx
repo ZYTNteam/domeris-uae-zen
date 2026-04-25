@@ -140,19 +140,22 @@ const WhyUAE = () => {
         <div className="pointer-events-none absolute inset-x-0 top-0 h-px"
           style={{ background: "linear-gradient(90deg, transparent, hsl(var(--gold) / 0.6), transparent)" }} />
 
-        {/* Misty Dubai skyline behind the lower-left content */}
+        {/* Misty Dubai skyline — full-width, seamlessly faded into ivory on all sides */}
         <div
-          className="pointer-events-none absolute bottom-0 left-0 z-0 h-[55%] w-[65%]"
+          className="pointer-events-none absolute inset-x-0 bottom-0 z-0 h-[60%] w-full"
           aria-hidden="true"
           style={{
-            backgroundImage: `linear-gradient(180deg, hsl(40 33% 97% / 0) 0%, hsl(40 33% 97% / 0.55) 60%, hsl(40 33% 97%) 100%), url(${skylineMist})`,
+            backgroundImage: `linear-gradient(180deg, hsl(40 33% 97% / 0) 0%, hsl(40 33% 97% / 0.45) 55%, hsl(40 33% 97%) 100%), url(${skylineMist})`,
             backgroundSize: "cover",
             backgroundPosition: "center bottom",
-            opacity: 0.55,
+            backgroundRepeat: "no-repeat",
+            opacity: 0.5,
             maskImage:
-              "linear-gradient(180deg, transparent 0%, black 35%, black 80%, transparent 100%)",
+              "linear-gradient(180deg, transparent 0%, black 40%, black 85%, transparent 100%), linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(180deg, transparent 0%, black 35%, black 80%, transparent 100%)",
+              "linear-gradient(180deg, transparent 0%, black 40%, black 85%, transparent 100%), linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%)",
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
           }}
         />
 
