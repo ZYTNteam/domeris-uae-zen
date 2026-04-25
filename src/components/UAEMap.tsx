@@ -33,74 +33,101 @@ const cities: City[] = [
 ];
 
 const UAEMap = ({ className = "" }: { className?: string }) => {
-  const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
-
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const onMove = (e: MouseEvent) => {
-      const r = el.getBoundingClientRect();
-      const px = (e.clientX - r.left) / r.width;
-      const py = (e.clientY - r.top) / r.height;
-      // proximity in percentage space
-      const sx = px * 100;
-      const sy = py * 100;
-      let nearest: { name: string; d: number } | null = null;
-      for (const c of cities) {
-        const d = Math.hypot(c.x - sx, c.y - sy);
-        if (!nearest || d < nearest.d) nearest = { name: c.name, d };
-      }
-      setActive(nearest && nearest.d < 8 ? nearest.name : null);
-    };
-    const onLeave = () => setActive(null);
-    el.addEventListener("mousemove", onMove);
-    el.addEventListener("mouseleave", onLeave);
-    return () => {
-      el.removeEventListener("mousemove", onMove);
-      el.removeEventListener("mouseleave", onLeave);
-    };
-  }, []);
+  const activeCity = cities.find((c) => c.name === active) ?? null;
+  // Cinematic zoom around hovered city — scale 1.32x with origin at city
+  const ZOOM = 1.32;
+  const transform = activeCity ? `scale(${ZOOM})` : "scale(1)";
+  const transformOrigin = activeCity
+    ? `${activeCity.x}% ${activeCity.y}%`
+    : "50% 50%";
 
   return (
-    <div
-      ref={wrapRef}
-      className={`relative ${className}`}
-    >
-      {/* Map image — static, no zoom or parallax. No glow/halo behind it. */}
-      <div className="relative h-full w-full">
-        <img
-          src={reliefMap}
-          alt="Embossed relief map of the United Arab Emirates"
-          className="pointer-events-none h-full w-full select-none object-contain"
-          width={1024}
-          height={1024}
-          loading="lazy"
-          draggable={false}
-        />
+    <div className={`relative ${className}`}>
+      {/* Map zoom container — overflow hidden so the scaled image stays framed */}
+      <div className="relative h-full w-full overflow-hidden">
+        {/* The transforming layer holds both the image AND the per-city glow,
+            so the glow stays anchored to the city as the map zooms. */}
+        <div
+          className="relative h-full w-full"
+          style={{
+            transform,
+            transformOrigin,
+            transition:
+              "transform 800ms cubic-bezier(0.22, 1, 0.36, 1), transform-origin 800ms cubic-bezier(0.22, 1, 0.36, 1)",
+            willChange: "transform",
+          }}
+        >
+          <img
+            src={reliefMap}
+            alt="Embossed relief map of the United Arab Emirates"
+            className="pointer-events-none h-full w-full select-none object-contain"
+            width={1024}
+            height={1024}
+            loading="lazy"
+            draggable={false}
+          />
 
-        {/* Subtle hover glow on city positions (labels & dots are baked into the map image) */}
-        {cities.map((c) => {
-          const isActive = active === c.name;
-          return (
-            <span
-              key={c.name}
-              aria-hidden="true"
-              className="pointer-events-none absolute block -translate-x-1/2 -translate-y-1/2 rounded-full"
-              style={{
-                left: `${c.x}%`,
-                top: `${c.y}%`,
-                width: isActive ? 26 : 10,
-                height: isActive ? 26 : 10,
-                background: "hsl(var(--gold) / 0.35)",
-                filter: "blur(6px)",
-                opacity: isActive ? 1 : 0,
-                transition:
-                  "opacity 600ms ease, width 700ms cubic-bezier(0.22,1,0.36,1), height 700ms cubic-bezier(0.22,1,0.36,1)",
-              }}
-            />
-          );
-        })}
+          {/* Per-city glow + pulsing ring (anchored on the zooming layer) */}
+          {cities.map((c) => {
+            const isActive = active === c.name;
+            return (
+              <div
+                key={`fx-${c.name}`}
+                aria-hidden="true"
+                className="pointer-events-none absolute"
+                style={{
+                  left: `${c.x}%`,
+                  top: `${c.y}%`,
+                  transform: "translate(-50%, -50%)",
+                }}
+              >
+                {/* Soft champagne-gold glow */}
+                <span
+                  className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
+                  style={{
+                    width: isActive ? 22 : 8,
+                    height: isActive ? 22 : 8,
+                    background: "hsl(var(--gold) / 0.55)",
+                    filter: "blur(5px)",
+                    opacity: isActive ? 1 : 0,
+                    boxShadow: isActive
+                      ? "0 0 22px hsl(var(--gold) / 0.7)"
+                      : "none",
+                    transition:
+                      "opacity 600ms ease, width 700ms cubic-bezier(0.22,1,0.36,1), height 700ms cubic-bezier(0.22,1,0.36,1), box-shadow 600ms ease",
+                  }}
+                />
+                {/* Pulsing ring */}
+                {isActive && (
+                  <span
+                    className="absolute left-1/2 top-1/2 block h-5 w-5 -translate-x-1/2 -translate-y-1/2 rounded-full border"
+                    style={{
+                      borderColor: "hsl(var(--gold) / 0.6)",
+                      animation: "city-ring 1800ms ease-out infinite",
+                    }}
+                  />
+                )}
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Invisible hover hotspots — sit ABOVE the zooming layer so the
+            zoom doesn't move them out from under the cursor. */}
+        {cities.map((c) => (
+          <button
+            key={`hot-${c.name}`}
+            type="button"
+            aria-label={c.name}
+            onMouseEnter={() => setActive(c.name)}
+            onMouseLeave={() => setActive((prev) => (prev === c.name ? null : prev))}
+            onFocus={() => setActive(c.name)}
+            onBlur={() => setActive((prev) => (prev === c.name ? null : prev))}
+            className="absolute h-12 w-12 -translate-x-1/2 -translate-y-1/2 rounded-full bg-transparent outline-none focus-visible:ring-1 focus-visible:ring-[hsl(var(--gold)/0.6)]"
+            style={{ left: `${c.x}%`, top: `${c.y}%` }}
+          />
+        ))}
       </div>
     </div>
   );
