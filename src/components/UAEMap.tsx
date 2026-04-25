@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import reliefMap from "@/assets/uae-relief-map.png";
 
 /**
