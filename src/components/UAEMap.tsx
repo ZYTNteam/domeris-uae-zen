@@ -67,16 +67,7 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
       ref={wrapRef}
       className={`relative ${className}`}
     >
-      {/* Faint radial pedestal */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 45% 45%, hsl(var(--gold) / 0.10), transparent 65%)",
-        }}
-      />
-
-      {/* Map image — static, no zoom or parallax */}
+      {/* Map image — static, no zoom or parallax. No glow/halo behind it. */}
       <div className="relative h-full w-full">
         <img
           src={reliefMap}
@@ -88,113 +79,28 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
           draggable={false}
         />
 
-        {/* City markers — positioned absolutely on top of the map */}
-        {cities.map((c, i) => {
+        {/* Subtle hover glow on city positions (labels & dots are baked into the map image) */}
+        {cities.map((c) => {
           const isActive = active === c.name;
           return (
-            <div
+            <span
               key={c.name}
-              className="absolute"
+              aria-hidden="true"
+              className="pointer-events-none absolute block -translate-x-1/2 -translate-y-1/2 rounded-full"
               style={{
                 left: `${c.x}%`,
                 top: `${c.y}%`,
-                transform: "translate(-50%, -50%)",
+                width: isActive ? 26 : 10,
+                height: isActive ? 26 : 10,
+                background: "hsl(var(--gold) / 0.35)",
+                filter: "blur(6px)",
+                opacity: isActive ? 1 : 0,
+                transition:
+                  "opacity 600ms ease, width 700ms cubic-bezier(0.22,1,0.36,1), height 700ms cubic-bezier(0.22,1,0.36,1)",
               }}
-            >
-              {/* Pulsing ring (active only) */}
-              {isActive && (
-                <span
-                  className="absolute left-1/2 top-1/2 block h-6 w-6 -translate-x-1/2 -translate-y-1/2 rounded-full border"
-                  style={{
-                    borderColor: "hsl(var(--gold) / 0.55)",
-                    animation: "city-ring 1800ms ease-out infinite",
-                  }}
-                />
-              )}
-              {/* Halo */}
-              <span
-                className="absolute left-1/2 top-1/2 block -translate-x-1/2 -translate-y-1/2 rounded-full"
-                style={{
-                  width: isActive ? 28 : 14,
-                  height: isActive ? 28 : 14,
-                  background: "hsl(var(--gold) / 0.22)",
-                  filter: isActive ? "blur(2px)" : "blur(1px)",
-                  transition: "all 900ms cubic-bezier(0.22,1,0.36,1)",
-                  opacity: isActive ? 1 : 0.7,
-                  boxShadow: isActive
-                    ? "0 0 24px hsl(var(--gold) / 0.7)"
-                    : "0 0 8px hsl(var(--gold) / 0.35)",
-                }}
-              />
-              {/* Soft pulse dot */}
-              <span
-                className="absolute left-1/2 top-1/2 block h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full"
-                style={{
-                  background: "hsl(var(--gold) / 0.45)",
-                  animation: `pulse-node 3.6s ease-in-out ${i * 0.4}s infinite`,
-                }}
-              />
-              {/* Core dot */}
-              <span
-                className="absolute left-1/2 top-1/2 block h-[5px] w-[5px] -translate-x-1/2 -translate-y-1/2 rounded-full"
-                style={{ background: "hsl(var(--gold))" }}
-              />
-              {/* Leader line + label */}
-              <div
-                className="absolute top-1/2 flex -translate-y-1/2 items-center"
-                style={{
-                  left: c.align === "right" ? "100%" : "auto",
-                  right: c.align === "left" ? "100%" : "auto",
-                  flexDirection: c.align === "left" ? "row-reverse" : "row",
-                }}
-              >
-                <span
-                  className="block h-px"
-                  style={{
-                    width: isActive ? 36 : 28,
-                    background:
-                      "linear-gradient(90deg, hsl(var(--gold) / 0.7), hsl(var(--gold) / 0.2))",
-                    transition: "width 700ms cubic-bezier(0.22,1,0.36,1)",
-                  }}
-                />
-                <span
-                  className="whitespace-nowrap px-2 text-[10px] uppercase tracking-[0.28em]"
-                  style={{
-                    color: isActive
-                      ? "hsl(var(--gold-deep))"
-                      : "hsl(var(--foreground) / 0.75)",
-                    fontWeight: isActive ? 600 : 500,
-                    letterSpacing: isActive ? "0.32em" : "0.28em",
-                    transform: isActive ? "scale(1.06)" : "scale(1)",
-                    transformOrigin: c.align === "left" ? "right" : "left",
-                    transition:
-                      "color 600ms ease, letter-spacing 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1), font-weight 600ms ease",
-                    textShadow: isActive
-                      ? "0 0 12px hsl(var(--gold) / 0.5)"
-                      : "none",
-                  }}
-                >
-                  {c.name}
-                </span>
-              </div>
-            </div>
+            />
           );
         })}
-      </div>
-
-      {/* Soft gold sweep across the map */}
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute inset-y-0 -left-1/3 w-1/3"
-          style={{
-            background:
-              "linear-gradient(110deg, transparent 30%, hsl(var(--gold) / 0.10) 50%, transparent 70%)",
-            animation: "hero-sweep 14s ease-in-out infinite",
-          }}
-        />
       </div>
     </div>
   );
