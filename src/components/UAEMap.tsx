@@ -77,6 +77,16 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
         onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
+        style={{
+          maskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
+          WebkitMaskImage:
+            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
+          maskComposite: "intersect",
+          WebkitMaskComposite: "source-in",
+          maskRepeat: "no-repeat",
+          WebkitMaskRepeat: "no-repeat",
+        }}
       >
         <img
           ref={imgRef}
