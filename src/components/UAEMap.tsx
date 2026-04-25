@@ -35,21 +35,14 @@ const cities: City[] = [
 const UAEMap = ({ className = "" }: { className?: string }) => {
   const wrapRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState<string | null>(null);
-  const [parallax, setParallax] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
     const el = wrapRef.current;
     if (!el) return;
-    let raf = 0;
     const onMove = (e: MouseEvent) => {
       const r = el.getBoundingClientRect();
       const px = (e.clientX - r.left) / r.width;
       const py = (e.clientY - r.top) / r.height;
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() =>
-        setParallax({ x: (px - 0.5) * 10, y: (py - 0.5) * 8 })
-      );
-
       // proximity in percentage space
       const sx = px * 100;
       const sy = py * 100;
@@ -66,21 +59,13 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
     return () => {
       el.removeEventListener("mousemove", onMove);
       el.removeEventListener("mouseleave", onLeave);
-      cancelAnimationFrame(raf);
     };
   }, []);
-
-  const activeCity = cities.find((c) => c.name === active);
-  const zoom = activeCity ? 1.08 : 1;
-  // translate map so the active city moves slightly toward center
-  const tx = activeCity ? (50 - activeCity.x) * 0.18 : 0;
-  const ty = activeCity ? (50 - activeCity.y) * 0.18 : 0;
 
   return (
     <div
       ref={wrapRef}
       className={`relative ${className}`}
-      style={{ perspective: "1400px" }}
     >
       {/* Faint radial pedestal */}
       <div
@@ -91,17 +76,8 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
         }}
       />
 
-      {/* Map image with parallax + zoom transform */}
-      <div
-        className="relative h-full w-full"
-        style={{
-          transform: `translate3d(${parallax.x + tx}%, ${parallax.y + ty}%, 0) scale(${zoom})`,
-          transition: "transform 1400ms cubic-bezier(0.22,1,0.36,1)",
-          transformOrigin: activeCity
-            ? `${activeCity.x}% ${activeCity.y}%`
-            : "50% 50%",
-        }}
-      >
+      {/* Map image — static, no zoom or parallax */}
+      <div className="relative h-full w-full">
         <img
           src={reliefMap}
           alt="Embossed relief map of the United Arab Emirates"
