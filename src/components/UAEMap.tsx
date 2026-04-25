@@ -73,20 +73,10 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
     <div className={`relative ${className}`}>
       <div
         ref={containerRef}
-        className="relative h-full w-full overflow-hidden cursor-zoom-in"
+        className="relative h-full w-full cursor-zoom-in"
         onMouseEnter={handleEnter}
         onMouseMove={handleMove}
         onMouseLeave={handleLeave}
-        style={{
-          maskImage:
-            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
-          WebkitMaskImage:
-            "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
-          maskComposite: "intersect",
-          WebkitMaskComposite: "source-in",
-          maskRepeat: "no-repeat",
-          WebkitMaskRepeat: "no-repeat",
-        }}
       >
         <img
           ref={imgRef}
@@ -102,6 +92,14 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
             transition:
               "transform 800ms cubic-bezier(0.22, 1, 0.36, 1)",
             willChange: "transform, transform-origin",
+            maskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
+            WebkitMaskImage:
+              "linear-gradient(to right, transparent 0%, rgba(0,0,0,0.15) 18%, black 38%, black 82%, rgba(0,0,0,0.65) 94%, transparent 100%), linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.6) 8%, black 22%, black 80%, rgba(0,0,0,0.6) 94%, transparent 100%)",
+            maskComposite: "intersect",
+            WebkitMaskComposite: "source-in",
+            maskRepeat: "no-repeat",
+            WebkitMaskRepeat: "no-repeat",
           }}
         />
       </div>
