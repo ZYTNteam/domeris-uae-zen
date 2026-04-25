@@ -67,16 +67,7 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
       ref={wrapRef}
       className={`relative ${className}`}
     >
-      {/* Faint radial pedestal */}
-      <div
-        className="pointer-events-none absolute inset-0"
-        style={{
-          background:
-            "radial-gradient(ellipse at 45% 45%, hsl(var(--gold) / 0.10), transparent 65%)",
-        }}
-      />
-
-      {/* Map image — static, no zoom or parallax */}
+      {/* Map image — static, no zoom or parallax. No glow/halo behind it. */}
       <div className="relative h-full w-full">
         <img
           src={reliefMap}
@@ -180,21 +171,6 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
             </div>
           );
         })}
-      </div>
-
-      {/* Soft gold sweep across the map */}
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden"
-        aria-hidden="true"
-      >
-        <div
-          className="absolute inset-y-0 -left-1/3 w-1/3"
-          style={{
-            background:
-              "linear-gradient(110deg, transparent 30%, hsl(var(--gold) / 0.10) 50%, transparent 70%)",
-            animation: "hero-sweep 14s ease-in-out infinite",
-          }}
-        />
       </div>
     </div>
   );
