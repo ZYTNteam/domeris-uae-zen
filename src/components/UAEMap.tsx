@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import reliefMap from "@/assets/uae-relief-map.png";
 
 /**
@@ -18,12 +18,35 @@ import reliefMap from "@/assets/uae-relief-map.png";
  * smoothly so the zoomed view follows the cursor. On mouse leave, the map
  * eases back to its original scale and centered origin.
  */
-const ZOOM = 2.5;
+const ZOOM = 1.7;
 
 const UAEMap = ({ className = "" }: { className?: string }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
   const [hovering, setHovering] = useState(false);
-  const [origin, setOrigin] = useState({ x: 50, y: 50 });
+
+  // Use refs (not state) for the cursor-follow loop so we don't trigger
+  // React re-renders on every animation frame.
+  const target = useRef({ x: 50, y: 50 });
+  const current = useRef({ x: 50, y: 50 });
+  const rafId = useRef<number | null>(null);
+
+  useEffect(() => {
+    const tick = () => {
+      // Lerp towards the target for soft, premium follow
+      current.current.x += (target.current.x - current.current.x) * 0.08;
+      current.current.y += (target.current.y - current.current.y) * 0.08;
+      const img = imgRef.current;
+      if (img) {
+        img.style.transformOrigin = `${current.current.x}% ${current.current.y}%`;
+      }
+      rafId.current = requestAnimationFrame(tick);
+    };
+    rafId.current = requestAnimationFrame(tick);
+    return () => {
+      if (rafId.current !== null) cancelAnimationFrame(rafId.current);
+    };
+  }, []);
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const el = containerRef.current;
@@ -31,10 +54,8 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
     const r = el.getBoundingClientRect();
     const x = ((e.clientX - r.left) / r.width) * 100;
     const y = ((e.clientY - r.top) / r.height) * 100;
-    setOrigin({
-      x: Math.max(0, Math.min(100, x)),
-      y: Math.max(0, Math.min(100, y)),
-    });
+    target.current.x = Math.max(0, Math.min(100, x));
+    target.current.y = Math.max(0, Math.min(100, y));
   };
 
   const handleEnter = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -44,7 +65,8 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
 
   const handleLeave = () => {
     setHovering(false);
-    setOrigin({ x: 50, y: 50 });
+    target.current.x = 50;
+    target.current.y = 50;
   };
 
   return (
@@ -57,6 +79,7 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
         onMouseLeave={handleLeave}
       >
         <img
+          ref={imgRef}
           src={reliefMap}
           alt="Embossed relief map of the United Arab Emirates"
           className="pointer-events-none h-full w-full select-none object-contain"
@@ -66,10 +89,8 @@ const UAEMap = ({ className = "" }: { className?: string }) => {
           draggable={false}
           style={{
             transform: hovering ? `scale(${ZOOM})` : "scale(1)",
-            transformOrigin: `${origin.x}% ${origin.y}%`,
-            transition: hovering
-              ? "transform 600ms cubic-bezier(0.22, 1, 0.36, 1), transform-origin 200ms ease-out"
-              : "transform 700ms cubic-bezier(0.22, 1, 0.36, 1), transform-origin 700ms cubic-bezier(0.22, 1, 0.36, 1)",
+            transition:
+              "transform 800ms cubic-bezier(0.22, 1, 0.36, 1)",
             willChange: "transform, transform-origin",
           }}
         />
