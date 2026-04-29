@@ -3,8 +3,12 @@ import SectionLabel from "@/components/SectionLabel";
 import CinematicHero from "@/components/CinematicHero";
 import architecture from "@/assets/architecture.jpg";
 import dunes from "@/assets/dunes.jpg";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import reBluewaters from "@/assets/re-bluewaters.jpg";
+import reMarina from "@/assets/re-marina.jpeg";
+import reJbr from "@/assets/re-jbr.webp";
+import reBusinessBay from "@/assets/re-businessbay.webp";
 
 const pillars = [
   { n: "01", t: "UAE Focus", d: "A single market, studied with depth." },
@@ -20,10 +24,17 @@ const drivers = [
 ];
 
 const strategy = [
-  { t: "Real Assets", d: "Tangible exposure across the Emirates." },
-  { t: "Private Opportunities", d: "Selective, relationship-led participation." },
+  { t: "Real Estate", d: "Tangible exposure across the Emirates." },
+  { t: "Shareholder-led participation and private leads", d: "Selective, relationship-led participation." },
   { t: "Structured Allocations", d: "Risk shaped through deliberate construction." },
   { t: "Opportunistic UAE Themes", d: "Conviction trades on national tailwinds." },
+];
+
+const realEstateLocations = [
+  { name: "Bluewaters", img: reBluewaters },
+  { name: "Marina", img: reMarina },
+  { name: "JBR", img: reJbr },
+  { name: "Business Bay", img: reBusinessBay },
 ];
 
 const timeline = [
