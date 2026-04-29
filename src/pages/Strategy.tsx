@@ -2,8 +2,8 @@ import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
 
 const pillars = [
-  { t: "Real Assets", d: "Tangible exposure across the Emirates' real economy." },
-  { t: "Private Opportunities", d: "Selective, relationship-led participation in private deals." },
+  { t: "Real Estate", d: "Tangible exposure across the Emirates' real economy." },
+  { t: "Shareholder-led participation and private leads", d: "Selective, relationship-led participation in private deals." },
   { t: "Structured Allocations", d: "Risk shaped through deliberate position construction." },
   { t: "Opportunistic UAE Themes", d: "Conviction trades on national tailwinds and dislocations." },
 ];
