@@ -306,33 +306,48 @@ const Index = () => {
               ref={timelineRef}
               className="grid grid-cols-1 md:grid-cols-6"
             >
-            {timeline.map((step, i) => (
-              <li
-                key={step}
-                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <span
-                  className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-colors duration-700 md:-top-[5px] md:left-6"
-                  style={{
-                    backgroundColor:
-                      progress * timeline.length > i
+            {timeline.map((step, i) => {
+              const threshold = (i + 0.5) / timeline.length;
+              const active = progress >= threshold;
+              return (
+                <li
+                  key={step}
+                  className="relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
+                >
+                  <span
+                    className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-all duration-700 md:-top-[5px] md:left-6"
+                    style={{
+                      backgroundColor: active
                         ? "hsl(var(--gold))"
                         : "hsl(var(--border))",
-                    boxShadow:
-                      progress * timeline.length > i
+                      boxShadow: active
                         ? "0 0 14px hsl(var(--gold) / 0.6)"
                         : "none",
-                  }}
-                />
-                <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
-                  Step 0{i + 1}
-                </span>
-                <span className="font-serif text-2xl font-light text-foreground">
-                  {step}
-                </span>
-              </li>
-            ))}
+                      transform: active ? "scale(1.1)" : "scale(1)",
+                    }}
+                  />
+                  <span
+                    className="text-[10px] uppercase tracking-[0.4em] text-primary transition-all duration-700 ease-luxe"
+                    style={{
+                      opacity: active ? 1 : 0,
+                      transform: active ? "translateY(0)" : "translateY(8px)",
+                    }}
+                  >
+                    Step 0{i + 1}
+                  </span>
+                  <span
+                    className="font-serif text-2xl font-light text-foreground transition-all duration-1000 ease-luxe"
+                    style={{
+                      opacity: active ? 1 : 0,
+                      transform: active ? "translateY(0)" : "translateY(10px)",
+                      transitionDelay: active ? "120ms" : "0ms",
+                    }}
+                  >
+                    {step}
+                  </span>
+                </li>
+              );
+            })}
             </ol>
           </div>
         </div>
