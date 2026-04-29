@@ -75,6 +75,7 @@ const Hero = () => (
 const Index = () => {
   const timelineRef = useRef<HTMLOListElement>(null);
   const progress = useScrollProgress(timelineRef);
+  const [reOpen, setReOpen] = useState(false);
   return (
     <Layout>
       <Hero />
@@ -167,17 +168,75 @@ const Index = () => {
                 key={s.t}
                 className="reveal luxe-card gold-sweep group relative bg-background p-12 hover:bg-secondary/30"
                 style={{ transitionDelay: `${i * 80}ms` }}
+                onMouseEnter={i === 0 ? () => setReOpen(true) : undefined}
+                onMouseLeave={i === 0 ? () => setReOpen(false) : undefined}
               >
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
                   Pillar 0{i + 1}
                 </span>
-                <h3 className="mt-10 font-serif text-3xl font-light text-foreground md:text-5xl">
+                <h3
+                  className={
+                    "mt-10 font-serif text-3xl font-light text-foreground md:text-5xl" +
+                    (i === 0 ? " cursor-pointer select-none" : "")
+                  }
+                  onClick={i === 0 ? () => setReOpen((v) => !v) : undefined}
+                >
                   {s.t}
+                  {i === 0 && (
+                    <span
+                      className="ml-3 inline-block text-base text-primary/70 transition-transform duration-500"
+                      style={{ transform: reOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                      aria-hidden
+                    >
+                      ⌄
+                    </span>
+                  )}
                 </h3>
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
                   {s.d}
                 </p>
                 <div className="mt-12 h-px w-0 bg-primary/70 transition-all duration-700 group-hover:w-32" />
+
+                {i === 0 && (
+                  <div
+                    className="overflow-hidden transition-[max-height,opacity] duration-700 ease-luxe"
+                    style={{
+                      maxHeight: reOpen ? "640px" : "0px",
+                      opacity: reOpen ? 1 : 0,
+                    }}
+                  >
+                    <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                      {realEstateLocations.map((loc, idx) => (
+                        <figure
+                          key={loc.name}
+                          className="group/item relative overflow-hidden border border-border/50 bg-secondary/30 transition-all duration-500 hover:border-primary/60"
+                          style={{
+                            transitionDelay: reOpen ? `${idx * 80}ms` : "0ms",
+                            transform: reOpen ? "translateY(0)" : "translateY(8px)",
+                            opacity: reOpen ? 1 : 0,
+                          }}
+                        >
+                          <div className="aspect-[4/3] overflow-hidden">
+                            <img
+                              src={loc.img}
+                              alt={loc.name}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-luxe group-hover/item:scale-110"
+                            />
+                          </div>
+                          <figcaption className="flex items-center justify-between px-4 py-3">
+                            <span className="font-serif text-sm font-light text-foreground">
+                              {loc.name}
+                            </span>
+                            <span className="text-[9px] uppercase tracking-[0.3em] text-primary">
+                              0{idx + 1}
+                            </span>
+                          </figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </article>
             ))}
           </div>
