@@ -3,8 +3,12 @@ import SectionLabel from "@/components/SectionLabel";
 import CinematicHero from "@/components/CinematicHero";
 import architecture from "@/assets/architecture.jpg";
 import dunes from "@/assets/dunes.jpg";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useScrollProgress } from "@/hooks/use-scroll-progress";
+import reBluewaters from "@/assets/re-bluewaters.jpg";
+import reMarina from "@/assets/re-marina.jpeg";
+import reJbr from "@/assets/re-jbr.webp";
+import reBusinessBay from "@/assets/re-businessbay.webp";
 
 const pillars = [
   { n: "01", t: "UAE Focus", d: "A single market, studied with depth." },
@@ -20,10 +24,17 @@ const drivers = [
 ];
 
 const strategy = [
-  { t: "Real Assets", d: "Tangible exposure across the Emirates." },
-  { t: "Private Opportunities", d: "Selective, relationship-led participation." },
+  { t: "Real Estate", d: "Tangible exposure across the Emirates." },
+  { t: "Shareholder-led participation and private leads", d: "Selective, relationship-led participation." },
   { t: "Structured Allocations", d: "Risk shaped through deliberate construction." },
   { t: "Opportunistic UAE Themes", d: "Conviction trades on national tailwinds." },
+];
+
+const realEstateLocations = [
+  { name: "Bluewaters", img: reBluewaters },
+  { name: "Marina", img: reMarina },
+  { name: "JBR", img: reJbr },
+  { name: "Business Bay", img: reBusinessBay },
 ];
 
 const timeline = [
@@ -64,6 +75,7 @@ const Hero = () => (
 const Index = () => {
   const timelineRef = useRef<HTMLOListElement>(null);
   const progress = useScrollProgress(timelineRef);
+  const [reOpen, setReOpen] = useState(false);
   return (
     <Layout>
       <Hero />
@@ -156,17 +168,75 @@ const Index = () => {
                 key={s.t}
                 className="reveal luxe-card gold-sweep group relative bg-background p-12 hover:bg-secondary/30"
                 style={{ transitionDelay: `${i * 80}ms` }}
+                onMouseEnter={i === 0 ? () => setReOpen(true) : undefined}
+                onMouseLeave={i === 0 ? () => setReOpen(false) : undefined}
               >
                 <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
                   Pillar 0{i + 1}
                 </span>
-                <h3 className="mt-10 font-serif text-3xl font-light text-foreground md:text-5xl">
+                <h3
+                  className={
+                    "mt-10 font-serif text-3xl font-light text-foreground md:text-5xl" +
+                    (i === 0 ? " cursor-pointer select-none" : "")
+                  }
+                  onClick={i === 0 ? () => setReOpen((v) => !v) : undefined}
+                >
                   {s.t}
+                  {i === 0 && (
+                    <span
+                      className="ml-3 inline-block text-base text-primary/70 transition-transform duration-500"
+                      style={{ transform: reOpen ? "rotate(180deg)" : "rotate(0deg)" }}
+                      aria-hidden
+                    >
+                      ⌄
+                    </span>
+                  )}
                 </h3>
                 <p className="mt-6 max-w-md text-sm leading-relaxed text-muted-foreground">
                   {s.d}
                 </p>
                 <div className="mt-12 h-px w-0 bg-primary/70 transition-all duration-700 group-hover:w-32" />
+
+                {i === 0 && (
+                  <div
+                    className="overflow-hidden transition-[max-height,opacity] duration-700 ease-luxe"
+                    style={{
+                      maxHeight: reOpen ? "640px" : "0px",
+                      opacity: reOpen ? 1 : 0,
+                    }}
+                  >
+                    <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                      {realEstateLocations.map((loc, idx) => (
+                        <figure
+                          key={loc.name}
+                          className="group/item relative overflow-hidden border border-border/50 bg-secondary/30 transition-all duration-500 hover:border-primary/60"
+                          style={{
+                            transitionDelay: reOpen ? `${idx * 80}ms` : "0ms",
+                            transform: reOpen ? "translateY(0)" : "translateY(8px)",
+                            opacity: reOpen ? 1 : 0,
+                          }}
+                        >
+                          <div className="aspect-[4/3] overflow-hidden">
+                            <img
+                              src={loc.img}
+                              alt={loc.name}
+                              loading="lazy"
+                              className="h-full w-full object-cover transition-transform duration-[1200ms] ease-luxe group-hover/item:scale-110"
+                            />
+                          </div>
+                          <figcaption className="flex items-center justify-between px-4 py-3">
+                            <span className="font-serif text-sm font-light text-foreground">
+                              {loc.name}
+                            </span>
+                            <span className="text-[9px] uppercase tracking-[0.3em] text-primary">
+                              0{idx + 1}
+                            </span>
+                          </figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -236,33 +306,48 @@ const Index = () => {
               ref={timelineRef}
               className="grid grid-cols-1 md:grid-cols-6"
             >
-            {timeline.map((step, i) => (
-              <li
-                key={step}
-                className="reveal relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <span
-                  className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-colors duration-700 md:-top-[5px] md:left-6"
-                  style={{
-                    backgroundColor:
-                      progress * timeline.length > i
+            {timeline.map((step, i) => {
+              const threshold = (i + 0.5) / timeline.length;
+              const active = progress >= threshold;
+              return (
+                <li
+                  key={step}
+                  className="relative flex flex-col gap-6 border-l border-border/40 px-6 py-8 md:border-l-0"
+                >
+                  <span
+                    className="absolute -left-[5px] top-8 h-2.5 w-2.5 rounded-full transition-all duration-700 md:-top-[5px] md:left-6"
+                    style={{
+                      backgroundColor: active
                         ? "hsl(var(--gold))"
                         : "hsl(var(--border))",
-                    boxShadow:
-                      progress * timeline.length > i
+                      boxShadow: active
                         ? "0 0 14px hsl(var(--gold) / 0.6)"
                         : "none",
-                  }}
-                />
-                <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
-                  Step 0{i + 1}
-                </span>
-                <span className="font-serif text-2xl font-light text-foreground">
-                  {step}
-                </span>
-              </li>
-            ))}
+                      transform: active ? "scale(1.1)" : "scale(1)",
+                    }}
+                  />
+                  <span
+                    className="text-[10px] uppercase tracking-[0.4em] text-primary transition-all duration-700 ease-luxe"
+                    style={{
+                      opacity: active ? 1 : 0,
+                      transform: active ? "translateY(0)" : "translateY(8px)",
+                    }}
+                  >
+                    Step 0{i + 1}
+                  </span>
+                  <span
+                    className="font-serif text-2xl font-light text-foreground transition-all duration-1000 ease-luxe"
+                    style={{
+                      opacity: active ? 1 : 0,
+                      transform: active ? "translateY(0)" : "translateY(10px)",
+                      transitionDelay: active ? "120ms" : "0ms",
+                    }}
+                  >
+                    {step}
+                  </span>
+                </li>
+              );
+            })}
             </ol>
           </div>
         </div>

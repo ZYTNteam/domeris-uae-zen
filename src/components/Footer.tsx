@@ -19,6 +19,15 @@ const Footer = () => (
             Jurisdiction
           </p>
           <p className="mt-3 text-sm text-foreground">United Arab Emirates</p>
+          <p className="mt-8 text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+            Contact
+          </p>
+          <a
+            href="mailto:anne_b@domarisinvest.com"
+            className="mt-3 inline-block font-serif text-base text-foreground transition-colors duration-500 hover:text-primary"
+          >
+            anne_b@domarisinvest.com
+          </a>
         </div>
         <div className="md:col-span-3">
           <p className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
