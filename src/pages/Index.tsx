@@ -174,7 +174,7 @@ const Index = () => {
                 </span>
                 <h3
                   className={
-                    "mt-10 font-serif text-3xl font-light text-foreground md:text-5xl" +
+                    "mt-10 font-serif text-3xl font-light leading-[1.15] text-foreground md:text-5xl [word-spacing:0.05em]" +
                     (i === 0 ? " cursor-pointer select-none" : "")
                   }
                   onClick={i === 0 ? () => setReOpen((v) => !v) : undefined}
