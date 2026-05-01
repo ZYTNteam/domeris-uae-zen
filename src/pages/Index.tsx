@@ -175,11 +175,19 @@ const Index = () => {
                 <h3
                   className={
                     "mt-10 font-serif text-3xl font-light leading-[1.15] text-foreground md:text-5xl [word-spacing:0.05em]" +
+                    (i === 1 ? " max-w-full whitespace-normal break-words overflow-visible leading-[1.28] md:leading-[1.22]" : "") +
                     (i === 0 ? " cursor-pointer select-none" : "")
                   }
                   onClick={i === 0 ? () => setReOpen((v) => !v) : undefined}
                 >
-                  {s.t}
+                  {i === 1 ? (
+                    <>
+                      <span className="block">Shareholder-led participation</span>
+                      <span className="block">and private leads</span>
+                    </>
+                  ) : (
+                    s.t
+                  )}
                   {i === 0 && (
                     <span
                       className="ml-3 inline-block text-base text-primary/70 transition-transform duration-500"
