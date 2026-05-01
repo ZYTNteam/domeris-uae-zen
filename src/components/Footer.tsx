@@ -10,8 +10,7 @@ const Footer = () => (
             Domaris Invest
           </h3>
           <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-            A UAE-only investment firm allocating shareholders' capital with
-            discipline, governance, and a long horizon.
+            A private UAE family office investing the family's own capital - no external clients, no third-party funds. Built for generational horizons.
           </p>
         </div>
         <div className="md:col-span-3">
