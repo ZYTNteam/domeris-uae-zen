@@ -22,10 +22,10 @@ const Footer = () => (
             Contact
           </p>
           <a
-            href="mailto:anne_b@domarisinvest.com"
+            href="mailto:janne_b@domarisinvest.com"
             className="mt-3 inline-block font-serif text-base text-foreground transition-colors duration-500 hover:text-primary"
           >
-            anne_b@domarisinvest.com
+            janne_b@domarisinvest.com
           </a>
         </div>
         <div className="md:col-span-3">
