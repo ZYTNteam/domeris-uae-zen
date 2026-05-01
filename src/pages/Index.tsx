@@ -156,8 +156,7 @@ const Index = () => {
           <SectionLabel index="III." label="Strategy" />
           <div className="mt-8 flex flex-col items-baseline justify-between gap-6 md:flex-row">
             <h2 className="reveal max-w-2xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
-              <span className="mask-reveal">How capital is</span>{" "}
-              <span className="mask-reveal italic text-primary/90">deployed.</span>
+              <span className="mask-reveal italic text-primary/90">Principles</span>
             </h2>
           </div>
 
