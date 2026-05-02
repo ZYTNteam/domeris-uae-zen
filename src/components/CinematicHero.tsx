@@ -44,6 +44,7 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
             backgroundImage: `url(${dubaiSkyline})`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
+            filter: "saturate(1.15) contrast(1.12) brightness(1.02)",
           }}
         />
         {/* Readability overlays — boosted skyline contrast, focused text veil, smooth bottom fade */}
