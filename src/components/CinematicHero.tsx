@@ -245,9 +245,9 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
         ))}
       </div>
 
-      {/* Glass overlay (premium feel) */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-transparent to-background/80 backdrop-blur-[1px]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--background)/0.4)_75%)]" />
+      {/* Glass overlay (premium feel) — lightened so skyline stays clear */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--background)/0.18)_85%)]" />
     </div>
   );
 };
