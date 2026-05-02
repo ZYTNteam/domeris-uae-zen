@@ -487,3 +487,26 @@ All colors MUST be HSL.
 }
 
 html { scroll-behavior: smooth; }
+
+/* Cinematic drone pan for hero background image */
+@keyframes hero-drone-pan {
+  0% {
+    transform: scale(1.18) translate3d(-2.5%, 1%, 0);
+  }
+  50% {
+    transform: scale(1.24) translate3d(2.5%, -1%, 0);
+  }
+  100% {
+    transform: scale(1.18) translate3d(-2.5%, 1%, 0);
+  }
+}
+
+.hero-drone-pan {
+  will-change: transform;
+  transform-origin: center center;
+  animation: hero-drone-pan 60s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-drone-pan { animation: none; transform: scale(1.1); }
+}
