@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import dubaiSkyline from "@/assets/dubai-skyline.jpg";
 
 /**
  * CinematicHero — abstract, non-literal scene evoking UAE: dunes, skyline lines,
@@ -35,6 +36,22 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
       className={`absolute inset-0 overflow-hidden ${className}`}
       aria-hidden
     >
+      {/* Dubai skyline background — slow cinematic drone pan */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div
+          className="absolute inset-0 hero-drone-pan"
+          style={{
+            backgroundImage: `url(${dubaiSkyline})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+          }}
+        />
+        {/* Readability overlays — keep elegant/minimal */}
+        <div className="absolute inset-0 bg-background/55" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-background/30" />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/85" />
+      </div>
+
       {/* Background grain + gradient base */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_30%_40%,_hsl(var(--gold)/0.08),_transparent_55%)]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_75%_70%,_hsl(var(--gold)/0.06),_transparent_60%)]" />
