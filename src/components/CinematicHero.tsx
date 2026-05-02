@@ -44,17 +44,24 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
             backgroundImage: `url(${dubaiSkyline})`,
             backgroundSize: "cover",
             backgroundPosition: "center center",
+            filter: "saturate(1.15) contrast(1.12) brightness(1.02)",
           }}
         />
-        {/* Readability overlays — minimal wash, focused gradients for text + bottom fade */}
-        {/* Subtle global tint to harmonize with cream palette without washing out */}
-        <div className="absolute inset-0 bg-background/15" />
-        {/* Soft left-side veil for headline readability only */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
+        {/* Readability overlays — boosted skyline contrast, focused text veil, smooth bottom fade */}
+        {/* Contrast & saturation boost on the image itself via a multiply layer */}
+        <div
+          className="absolute inset-0 mix-blend-multiply opacity-25"
+          style={{
+            background:
+              "linear-gradient(180deg, hsl(var(--foreground) / 0.35), hsl(var(--foreground) / 0.05) 60%, transparent)",
+          }}
+        />
+        {/* Focused left-side veil for headline readability only (does not cover skyline) */}
+        <div className="absolute inset-y-0 left-0 w-[55%] bg-gradient-to-r from-background/75 via-background/25 to-transparent" />
         {/* Natural bottom fade into the cream background of the page below */}
-        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/60 to-background" />
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/55 to-background" />
         {/* Very gentle top fade so the navbar area breathes */}
-        <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-background/40 to-transparent" />
+        <div className="absolute inset-x-0 top-0 h-[18%] bg-gradient-to-b from-background/35 to-transparent" />
       </div>
 
       {/* Background grain + gradient base */}
@@ -245,9 +252,8 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
         ))}
       </div>
 
-      {/* Glass overlay (premium feel) — lightened so skyline stays clear */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/60" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_transparent_0%,_hsl(var(--background)/0.18)_85%)]" />
+      {/* Glass overlay (premium feel) — minimal, only at very edges */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/40" />
     </div>
   );
 };
