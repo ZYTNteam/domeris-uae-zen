@@ -46,10 +46,15 @@ const CinematicHero = ({ className = "" }: { className?: string }) => {
             backgroundPosition: "center center",
           }}
         />
-        {/* Readability overlays — keep elegant/minimal */}
-        <div className="absolute inset-0 bg-background/55" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/40 to-background/30" />
-        <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background/85" />
+        {/* Readability overlays — minimal wash, focused gradients for text + bottom fade */}
+        {/* Subtle global tint to harmonize with cream palette without washing out */}
+        <div className="absolute inset-0 bg-background/15" />
+        {/* Soft left-side veil for headline readability only */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-background/20 to-transparent" />
+        {/* Natural bottom fade into the cream background of the page below */}
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/60 to-background" />
+        {/* Very gentle top fade so the navbar area breathes */}
+        <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-background/40 to-transparent" />
       </div>
 
       {/* Background grain + gradient base */}
