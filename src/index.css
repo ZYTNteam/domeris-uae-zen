@@ -504,7 +504,7 @@ html { scroll-behavior: smooth; }
 .hero-drone-pan {
   will-change: transform;
   transform-origin: center center;
-  animation: hero-drone-pan 60s ease-in-out infinite;
+  animation: hero-drone-pan 30s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
