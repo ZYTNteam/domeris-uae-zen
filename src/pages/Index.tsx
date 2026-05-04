@@ -55,13 +55,11 @@ const Hero = () => (
           Established in the United Arab Emirates
         </p>
         <h1 className="mt-8 font-serif text-[clamp(2.8rem,7vw,6.5rem)] font-semibold leading-[1.02] tracking-tight text-black">
-          <span className="line-mask delay-1"><span>DOMARIS INVEST.</span></span>
-          <br />
-          <span className="line-mask delay-2"><span className="italic text-black">A single-family office</span></span>
+          <span className="line-mask delay-1"><span className="italic text-black">A single-family office</span></span>
         </h1>
         <div className="mt-10 hero-rule" />
         <p className="mt-8 max-w-xl text-base font-medium leading-relaxed text-black md:text-lg opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
-          A private UAE family office investing the family's own capital - no external clients, no third-party funds. Built for generational horizons.
+          A private UAE family office investing the family's own capital. No external clients. No third-party funds. Built for generations.
         </p>
       </div>
     </div>
