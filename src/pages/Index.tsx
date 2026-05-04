@@ -80,78 +80,7 @@ const Index = () => {
       {/* H2 — Three pillars */}
       <section className="relative bg-background py-32 md:py-44">
         <div className="mx-auto max-w-[1320px] px-8">
-          <SectionLabel index="I." label="Principles" />
-          <h2 className="reveal mt-8 max-w-3xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
-            <span className="mask-reveal">Three commitments,</span>
-            <br />
-            <span className="mask-reveal italic text-primary/90">held without exception.</span>
-          </h2>
-
-          <div className="mt-24 grid grid-cols-1 gap-px bg-border/40 md:grid-cols-3">
-            {pillars.map((p, i) => (
-              <article
-                key={p.t}
-                className="reveal luxe-card gold-sweep group relative bg-background p-10 hover:bg-secondary/40"
-                style={{ transitionDelay: `${i * 120}ms` }}
-              >
-                <div className="flex items-start justify-between">
-                  <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
-                    {p.n}
-                  </span>
-                  <span className="h-px w-12 translate-y-2 bg-primary/60 transition-all duration-700 group-hover:w-20" />
-                </div>
-                <h3 className="mt-16 font-serif text-3xl font-light text-foreground md:text-4xl">
-                  {p.t}
-                </h3>
-                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
-                  {p.d}
-                </p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* H3 — UAE Advantage */}
-      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
-        <div
-          className="absolute inset-0 opacity-[0.08] mix-blend-screen"
-          style={{ backgroundImage: `url(${architecture})`, backgroundSize: "cover", backgroundPosition: "center" }}
-        />
-        <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 gap-16 px-8 md:grid-cols-12">
-          <div className="md:col-span-5">
-            <SectionLabel index="II." label="The UAE Advantage" />
-            <h2 className="reveal mt-8 font-serif text-4xl font-light leading-tight text-foreground md:text-5xl">
-              <span className="mask-reveal">Drivers we monitor.</span>
-            </h2>
-            <p className="reveal mt-8 max-w-md text-sm leading-relaxed text-muted-foreground">
-              The UAE offers a rare combination of stability, infrastructure,
-              and openness — a foundation we study continuously.
-            </p>
-          </div>
-          <ul className="md:col-span-7">
-            {drivers.map((d, i) => (
-              <li
-                key={d}
-                className="reveal group flex items-baseline justify-between border-b border-border/40 py-8 transition-colors hover:bg-background/40"
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <span className="font-serif text-2xl font-light text-foreground transition-colors group-hover:text-primary md:text-4xl">
-                  {d}
-                </span>
-                <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
-                  0{i + 1}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-
-      {/* H4 — Strategy preview */}
-      <section className="relative bg-background py-32 md:py-44">
-        <div className="mx-auto max-w-[1320px] px-8">
-          <SectionLabel index="III." label="Strategy" />
+          <SectionLabel index="I." label="Strategy" />
           <div className="mt-8 flex flex-col items-baseline justify-between gap-6 md:flex-row">
             <h2 className="reveal max-w-2xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
               <span className="mask-reveal italic text-primary/90">Principles</span>
@@ -241,6 +170,77 @@ const Index = () => {
                     </div>
                   </div>
                 )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* H3 — UAE Advantage */}
+      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
+        <div
+          className="absolute inset-0 opacity-[0.08] mix-blend-screen"
+          style={{ backgroundImage: `url(${architecture})`, backgroundSize: "cover", backgroundPosition: "center" }}
+        />
+        <div className="relative mx-auto grid max-w-[1320px] grid-cols-1 gap-16 px-8 md:grid-cols-12">
+          <div className="md:col-span-5">
+            <SectionLabel index="II." label="The UAE Advantage" />
+            <h2 className="reveal mt-8 font-serif text-4xl font-light leading-tight text-foreground md:text-5xl">
+              <span className="mask-reveal">Drivers we monitor.</span>
+            </h2>
+            <p className="reveal mt-8 max-w-md text-sm leading-relaxed text-muted-foreground">
+              The UAE offers a rare combination of stability, infrastructure,
+              and openness — a foundation we study continuously.
+            </p>
+          </div>
+          <ul className="md:col-span-7">
+            {drivers.map((d, i) => (
+              <li
+                key={d}
+                className="reveal group flex items-baseline justify-between border-b border-border/40 py-8 transition-colors hover:bg-background/40"
+                style={{ transitionDelay: `${i * 100}ms` }}
+              >
+                <span className="font-serif text-2xl font-light text-foreground transition-colors group-hover:text-primary md:text-4xl">
+                  {d}
+                </span>
+                <span className="text-[10px] uppercase tracking-[0.4em] text-muted-foreground">
+                  0{i + 1}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* H4 — Strategy preview */}
+      <section className="relative bg-background py-32 md:py-44">
+        <div className="mx-auto max-w-[1320px] px-8">
+          <SectionLabel index="III." label="Principles" />
+          <h2 className="reveal mt-8 max-w-3xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
+            <span className="mask-reveal">Three commitments,</span>
+            <br />
+            <span className="mask-reveal italic text-primary/90">held without exception.</span>
+          </h2>
+
+          <div className="mt-24 grid grid-cols-1 gap-px bg-border/40 md:grid-cols-3">
+            {pillars.map((p, i) => (
+              <article
+                key={p.t}
+                className="reveal luxe-card gold-sweep group relative bg-background p-10 hover:bg-secondary/40"
+                style={{ transitionDelay: `${i * 120}ms` }}
+              >
+                <div className="flex items-start justify-between">
+                  <span className="text-[10px] uppercase tracking-[0.4em] text-primary">
+                    {p.n}
+                  </span>
+                  <span className="h-px w-12 translate-y-2 bg-primary/60 transition-all duration-700 group-hover:w-20" />
+                </div>
+                <h3 className="mt-16 font-serif text-3xl font-light text-foreground md:text-4xl">
+                  {p.t}
+                </h3>
+                <p className="mt-6 text-sm leading-relaxed text-muted-foreground">
+                  {p.d}
+                </p>
               </article>
             ))}
           </div>
