@@ -80,7 +80,7 @@ const Index = () => {
       {/* H2 — Three pillars */}
       <section className="relative bg-background py-32 md:py-44">
         <div className="mx-auto max-w-[1320px] px-8">
-          <SectionLabel index="III." label="Principles" />
+          <SectionLabel index="I." label="Strategy" />
           <h2 className="reveal mt-8 max-w-3xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
             <span className="mask-reveal">Three commitments,</span>
             <br />
@@ -151,7 +151,7 @@ const Index = () => {
       {/* H4 — Strategy preview */}
       <section className="relative bg-background py-32 md:py-44">
         <div className="mx-auto max-w-[1320px] px-8">
-          <SectionLabel index="I." label="Strategy" />
+          <SectionLabel index="III." label="Principles" />
           <div className="mt-8 flex flex-col items-baseline justify-between gap-6 md:flex-row">
             <h2 className="reveal max-w-2xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
               <span className="mask-reveal italic text-primary/90">Principles</span>
