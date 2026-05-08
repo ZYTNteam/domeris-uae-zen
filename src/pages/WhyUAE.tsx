@@ -1,8 +1,8 @@
 import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
 import UAEMap from "@/components/UAEMap";
-import CinematicHero from "@/components/CinematicHero";
 import skylineMist from "@/assets/skyline-mist.jpg";
+import dubaiSkyline2 from "@/assets/dubai-skyline-2.jpg";
 import { useEffect, useRef, useState } from "react";
 import { Compass, MapPin, Building2, Layers, ShieldCheck, Globe2 } from "lucide-react";
 
@@ -60,7 +60,15 @@ const WhyUAE = () => {
     <Layout>
       {/* Cinematic intro */}
       <section className="relative flex h-[100svh] min-h-[600px] max-h-[900px] items-center justify-center overflow-hidden grain">
-        <CinematicHero />
+        <div
+          aria-hidden
+          className="absolute inset-0 hero-pan-bg"
+          style={{ backgroundImage: `url(${dubaiSkyline2})` }}
+        />
+        {/* Readability overlays — kept stationary above the panning image */}
+        <div className="absolute inset-y-0 left-0 z-[1] w-[55%] bg-gradient-to-r from-background/75 via-background/25 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 z-[1] h-[55%] bg-gradient-to-b from-transparent via-background/55 to-background" />
+        <div className="absolute inset-x-0 top-0 z-[1] h-[18%] bg-gradient-to-b from-background/35 to-transparent" />
         <div className="relative z-10 mx-auto flex w-full max-w-[1320px] flex-col items-start px-8">
           <SectionLabel index="—" label="Why UAE" />
           <h1 className="mt-6 max-w-5xl font-serif text-[clamp(3rem,8vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
