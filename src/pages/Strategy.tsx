@@ -44,8 +44,8 @@ const Strategy = () => (
         <SectionLabel index="—" label="Strategy" />
         <h1 className="reveal in mt-8 max-w-5xl font-serif text-[clamp(2.6rem,6.5vw,5.5rem)] font-light leading-[1.05] text-foreground">
           Capital deployed with{" "}
-          <span className="italic text-primary/90">conviction</span>, governed by{" "}
-          <span className="italic text-primary/90">restraint.</span>
+          <span className="italic">conviction</span>, governed by{" "}
+          <span className="italic">restraint.</span>
         </h1>
         <div className="gold-rule mt-12 w-40" />
         <p className="reveal mt-10 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
