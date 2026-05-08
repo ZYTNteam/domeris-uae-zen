@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
+import dubaiSkyline3 from "@/assets/dubai-skyline-3.jpg";
 
 const pillars = [
   { t: "Real Estate", d: "Tangible exposure across the Emirates' real economy." },
@@ -16,8 +17,23 @@ const sliders = [
 
 const Strategy = () => (
   <Layout>
-    <section className="relative bg-background pb-24 pt-44 md:pt-56">
-      <div className="mx-auto max-w-[1320px] px-8">
+    <section className="relative overflow-hidden bg-background pb-24 pt-44 md:pt-56">
+      {/* Cinematic Ken Burns background */}
+      <div className="absolute inset-0 overflow-hidden" aria-hidden>
+        <div
+          className="hero-kenburns absolute inset-0"
+          style={{
+            backgroundImage: `url(${dubaiSkyline3})`,
+            backgroundSize: "cover",
+            backgroundPosition: "center center",
+          }}
+        />
+        {/* Readability overlays — stationary */}
+        <div className="absolute inset-y-0 left-0 w-[65%] bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/60 to-background" />
+        <div className="absolute inset-x-0 top-0 h-[18%] bg-gradient-to-b from-background/40 to-transparent" />
+      </div>
+      <div className="relative z-10 mx-auto max-w-[1320px] px-8">
         <SectionLabel index="—" label="Strategy" />
         <h1 className="reveal in mt-8 max-w-5xl font-serif text-[clamp(2.6rem,6.5vw,5.5rem)] font-light leading-[1.05] text-foreground">
           Capital deployed with{" "}
