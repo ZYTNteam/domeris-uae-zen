@@ -510,3 +510,23 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .hero-drone-pan { animation: none; transform: scale(1.1); }
 }
+
+/* Why UAE — cinematic horizontal background pan */
+@keyframes hero-pan-bg {
+  0% { background-position-x: 0%; }
+  100% { background-position-x: 100%; }
+}
+.hero-pan-bg {
+  background-repeat: no-repeat;
+  background-size: 120% auto;
+  background-position: 0% center;
+  animation: hero-pan-bg 20s linear infinite;
+  will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-pan-bg {
+    animation: none;
+    background-position: center center;
+    background-size: cover;
+  }
+}
