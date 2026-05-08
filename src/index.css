@@ -518,7 +518,7 @@ html { scroll-behavior: smooth; }
 }
 .hero-pan-bg {
   background-repeat: no-repeat;
-  background-size: 120% auto;
+  background-size: 120% 120%;
   background-position: 0% center;
   animation: hero-pan-bg 20s linear infinite;
   will-change: background-position;
