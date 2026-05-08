@@ -18,22 +18,29 @@ const sliders = [
 const Strategy = () => (
   <Layout>
     <section className="relative overflow-hidden bg-background pb-24 pt-44 md:pt-56">
-      {/* Cinematic Ken Burns background */}
-      <div className="absolute inset-0 overflow-hidden" aria-hidden>
-        <div
-          className="hero-kenburns absolute inset-0"
-          style={{
-            backgroundImage: `url(${dubaiSkyline3})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center center",
-          }}
-        />
-        {/* Readability overlays — stationary */}
+      {/* Cinematic Ken Burns background — dedicated zoom layer */}
+      <div
+        className="hero-bg-zoom"
+        aria-hidden
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0,
+          backgroundImage: `url(${dubaiSkyline3})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+        }}
+      />
+      {/* Readability overlays — stationary, above background but below content */}
+      <div className="pointer-events-none absolute inset-0" style={{ zIndex: 1 }} aria-hidden>
         <div className="absolute inset-y-0 left-0 w-[65%] bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
         <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/60 to-background" />
         <div className="absolute inset-x-0 top-0 h-[18%] bg-gradient-to-b from-background/40 to-transparent" />
       </div>
-      <div className="relative z-10 mx-auto max-w-[1320px] px-8">
+      <div className="relative mx-auto max-w-[1320px] px-8" style={{ zIndex: 1 }}>
         <SectionLabel index="—" label="Strategy" />
         <h1 className="reveal in mt-8 max-w-5xl font-serif text-[clamp(2.6rem,6.5vw,5.5rem)] font-light leading-[1.05] text-foreground">
           Capital deployed with{" "}

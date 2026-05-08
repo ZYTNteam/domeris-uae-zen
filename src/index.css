@@ -532,18 +532,15 @@ html { scroll-behavior: smooth; }
 }
 
 /* Strategy — cinematic Ken Burns zoom */
-@keyframes hero-kenburns {
-  0%   { transform: scale(1); }
-  100% { transform: scale(1.15); }
+@keyframes heroZoom {
+  from { transform: scale(1.0); }
+  to   { transform: scale(1.18); }
 }
-.hero-kenburns {
+.hero-bg-zoom {
   transform-origin: center center;
-  animation: hero-kenburns 25s ease-in-out infinite alternate;
+  animation: heroZoom 25s ease-in-out infinite alternate;
   will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-kenburns {
-    animation: none;
-    transform: none;
-  }
+  .hero-bg-zoom { animation: none; }
 }
