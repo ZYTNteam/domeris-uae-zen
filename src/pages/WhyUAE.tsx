@@ -66,7 +66,7 @@ const WhyUAE = () => {
           <h1 className="mt-6 max-w-5xl font-serif text-[clamp(3rem,8vw,6.5rem)] font-light leading-[1.02] tracking-tight text-foreground">
             <span className="line-mask delay-1"><span>Why we choose</span></span>
             <br />
-            <span className="line-mask delay-2"><span className="italic text-primary">the United Arab Emirates.</span></span>
+            <span className="line-mask delay-2"><span className="italic">the United Arab Emirates.</span></span>
           </h1>
           <div className="mt-10 hero-rule" />
           <p className="mt-8 max-w-xl text-sm leading-relaxed text-muted-foreground opacity-0 animate-[fade-rise_1200ms_var(--ease-luxe)_1300ms_forwards]">
