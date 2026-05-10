@@ -1,5 +1,6 @@
 import Layout from "@/components/Layout";
 import SectionLabel from "@/components/SectionLabel";
+import dubaiNight1 from "@/assets/dubai-night-1.jpeg";
 
 const principles = [
   { t: "Transparency", d: "Clarity in process, position, and performance." },
@@ -15,8 +16,18 @@ const oversight = [
 
 const Governance = () => (
   <Layout>
-    <section className="bg-background pb-24 pt-44 md:pt-56">
-      <div className="mx-auto max-w-[1320px] px-8">
+    <section className="relative overflow-hidden bg-background pb-24 pt-44 md:pt-56">
+      <div
+        className="hero-bg-pan absolute inset-0"
+        aria-hidden
+        style={{ backgroundImage: `url(${dubaiNight1})`, zIndex: 0 }}
+      />
+      <div className="pointer-events-none absolute inset-0" style={{ zIndex: 0 }} aria-hidden>
+        <div className="absolute inset-y-0 left-0 w-[65%] bg-gradient-to-r from-background/85 via-background/45 to-transparent" />
+        <div className="absolute inset-x-0 bottom-0 h-[55%] bg-gradient-to-b from-transparent via-background/60 to-background" />
+        <div className="absolute inset-x-0 top-0 h-[18%] bg-gradient-to-b from-background/40 to-transparent" />
+      </div>
+      <div className="relative mx-auto max-w-[1320px] px-8" style={{ zIndex: 1 }}>
         <SectionLabel index="—" label="Governance" />
         <h1 className="reveal in mt-8 max-w-5xl font-serif text-[clamp(2.6rem,6.5vw,5.5rem)] font-light leading-[1.05] text-foreground">
           The architecture of{" "}

@@ -544,3 +544,18 @@ html { scroll-behavior: smooth; }
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-zoom { animation: none; }
 }
+
+/* Governance — cinematic horizontal side pan */
+@keyframes heroSidePan {
+  from { background-position: 0% center; }
+  to   { background-position: 100% center; }
+}
+.hero-bg-pan {
+  background-repeat: no-repeat;
+  background-size: 120% auto;
+  animation: heroSidePan 25s linear infinite;
+  will-change: background-position;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-bg-pan { animation: none; }
+}
