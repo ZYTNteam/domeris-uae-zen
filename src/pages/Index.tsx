@@ -248,7 +248,7 @@ const Index = () => {
       </section>
 
       {/* H5 — Track record preview */}
-      <section className="relative overflow-hidden bg-background py-32 md:py-44">
+      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
         <div
           className="absolute inset-x-0 bottom-0 h-[60%] opacity-60"
           style={{ backgroundImage: `url(${dunes})`, backgroundSize: "cover", backgroundPosition: "center top" }}
