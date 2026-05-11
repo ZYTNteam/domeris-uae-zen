@@ -89,9 +89,9 @@ const Index = () => {
 
           <div className="mt-24 grid grid-cols-1 gap-px bg-border/40 md:grid-cols-2">
             {strategy.map((s, i) => (
-              <article
-                key={s.t}
-                className="reveal luxe-card gold-sweep group relative bg-background p-12 hover:bg-secondary/30"
+            <article
+              key={s.t}
+              className="reveal luxe-card gold-sweep group relative border border-[#DDD5C7] bg-background p-12 hover:bg-secondary/30"
                 style={{ transitionDelay: `${i * 80}ms` }}
                 onMouseEnter={i === 0 ? () => setReOpen(true) : undefined}
                 onMouseLeave={i === 0 ? () => setReOpen(false) : undefined}
