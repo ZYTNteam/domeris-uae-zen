@@ -177,7 +177,7 @@ const Index = () => {
       </section>
 
       {/* H3 — UAE Advantage */}
-      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
+      <section className="relative overflow-hidden bg-background py-32 md:py-44">
         <div
           className="absolute inset-0 opacity-[0.08] mix-blend-screen"
           style={{ backgroundImage: `url(${architecture})`, backgroundSize: "cover", backgroundPosition: "center" }}
