@@ -177,7 +177,7 @@ const Index = () => {
       </section>
 
       {/* H3 — UAE Advantage */}
-      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
+      <section className="relative overflow-hidden bg-background py-32 md:py-44">
         <div
           className="absolute inset-0 opacity-[0.08] mix-blend-screen"
           style={{ backgroundImage: `url(${architecture})`, backgroundSize: "cover", backgroundPosition: "center" }}
@@ -248,7 +248,7 @@ const Index = () => {
       </section>
 
       {/* H5 — Track record preview */}
-      <section className="relative overflow-hidden bg-background py-32 md:py-44">
+      <section className="relative overflow-hidden bg-secondary/30 py-32 md:py-44">
         <div
           className="absolute inset-x-0 bottom-0 h-[60%] opacity-60"
           style={{ backgroundImage: `url(${dunes})`, backgroundSize: "cover", backgroundPosition: "center top" }}
@@ -293,7 +293,7 @@ const Index = () => {
       </section>
 
       {/* H6 — Governance timeline */}
-      <section className="relative bg-secondary/20 py-32 md:py-44">
+      <section className="relative bg-secondary/30 py-32 md:py-44">
         <div className="mx-auto max-w-[1320px] px-8">
           <SectionLabel index="V." label="Governance" />
           <h2 className="reveal mt-8 max-w-3xl font-serif text-4xl font-light leading-tight text-foreground md:text-6xl">
