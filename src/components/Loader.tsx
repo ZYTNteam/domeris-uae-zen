@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import logo from "@/assets/domaris-logo.png";
 
 const Loader = () => {
   const [gone, setGone] = useState(false);
@@ -9,7 +10,12 @@ const Loader = () => {
   if (gone) return null;
   return (
     <div className="loader-veil" aria-hidden>
-      <div className="loader-mark">D</div>
+      <img
+        src={logo}
+        alt="Domaris Invest"
+        className="loader-mark"
+        style={{ height: "64px", width: "auto", background: "transparent", mixBlendMode: "multiply" }}
+      />
     </div>
   );
 };
