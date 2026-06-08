@@ -556,6 +556,11 @@ html { scroll-behavior: smooth; }
   animation: heroSidePan 25s linear infinite;
   will-change: background-position;
 }
+@media (max-width: 767px) {
+  .hero-bg-pan {
+    background-size: auto 100%;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   .hero-bg-pan { animation: none; }
 }
